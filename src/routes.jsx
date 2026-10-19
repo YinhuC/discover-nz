@@ -9,7 +9,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Error from "./Pages/ErrorPage";
 import LocationComponent from "./Components/LocationSection";
-import { locations } from "./Pages/LocationPages/constants";
+import { locationPath, locations } from "./Pages/LocationPages/constants";
 import Loader from "./Components/Loader";
 
 const MIN_LOADER_MS = 1800;
@@ -121,7 +121,7 @@ export function Routing() {
           {locations.map((location, index) => (
             <Route
               key={location.slug}
-              path={`/location/${location.slug}`}
+              path={locationPath(location.slug)}
               element={
                 <LocationComponent
                   location={location}

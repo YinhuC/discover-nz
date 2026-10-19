@@ -4,6 +4,9 @@ import marlborough from "../../Images/154-Marlborough-sounds-min.webp";
 import queenstown from "../../Images/0864-Glenorchy-Queenstown-Miles-Holden-min.webp";
 import christchurch from "../../Images/9180-Port-Hills-Christchurch-Julian-Apse-min.webp";
 
+/** In-app URL of a location's page. */
+export const locationPath = (slug) => `/location/${slug}`;
+
 export const locations = [
   {
     slug: "auckland",

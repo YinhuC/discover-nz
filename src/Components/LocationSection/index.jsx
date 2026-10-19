@@ -25,6 +25,7 @@ import {
 } from "./style";
 import ArrowLink from "../ArrowLink";
 import { useCursorHover } from "../Cursor/Context/CursorContext";
+import { locationPath } from "../../Pages/LocationPages/constants";
 import {
   dropChars,
   gsap,
@@ -133,7 +134,7 @@ function LocationPage({ location, next, previous }) {
 
       <NextLink
         className="next-link"
-        to={`/location/${next.slug}`}
+        to={locationPath(next.slug)}
         style={{ backgroundColor: next.colour }}
         {...cursorProps}
       >
@@ -149,7 +150,7 @@ function LocationPage({ location, next, previous }) {
       </NextLink>
 
       <PageLinks aria-label="More destinations">
-        <ArrowLink to={`/location/${previous.slug}`}>
+        <ArrowLink to={locationPath(previous.slug)}>
           Previous: {previous.name}
         </ArrowLink>
         <ArrowLink to="/#explore">All destinations</ArrowLink>

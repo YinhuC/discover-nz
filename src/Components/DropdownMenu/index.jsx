@@ -15,7 +15,7 @@ import {
   MenuLabel,
 } from "./style";
 import { useCursorHover } from "../Cursor/Context/CursorContext";
-import { locations } from "../../Pages/LocationPages/constants";
+import { locationPath, locations } from "../../Pages/LocationPages/constants";
 
 /* Functions */
 
@@ -52,7 +52,7 @@ function DropdownMenu({ isOpen, onNavigate }) {
               <li key={location.slug} style={{ "--i": i }}>
                 <DestinationLink
                   ref={i === 0 ? firstLinkRef : undefined}
-                  to={`/location/${location.slug}`}
+                  to={locationPath(location.slug)}
                   onClick={onNavigate}
                   onFocus={() => setPreviewIndex(i)}
                   onMouseEnter={() => {

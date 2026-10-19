@@ -10,7 +10,7 @@ import {
   HorizontalSection,
   VerticalContainer,
 } from "./style";
-import { locations } from "../../LocationPages/constants";
+import { locationPath, locations } from "../../LocationPages/constants";
 
 /* Functions */
 
@@ -22,7 +22,7 @@ const cards = locations.map((location) => (
     image={location.image}
     header={location.name}
     credit={location.credit}
-    url={`/location/${location.slug}`}
+    url={locationPath(location.slug)}
   />
 ));
 
