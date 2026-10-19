@@ -80,6 +80,45 @@ export const Figure = styled.figure`
   background-color: #e8e4dc;
 `;
 
+export const ZoomButton = styled.button`
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+
+  &:focus-visible {
+    outline-offset: -4px;
+  }
+`;
+
+export const ZoomHint = styled.span`
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--ink);
+  background-color: var(--paper);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.3s ease, transform 0.4s var(--ease-out);
+
+  ${ZoomButton}:hover &,
+  ${ZoomButton}:focus-visible & {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
 export const RegionImage = styled.img`
   width: 100%;
   height: 100%;
@@ -87,7 +126,8 @@ export const RegionImage = styled.img`
   display: block;
   transition: scale 1.2s var(--ease-out);
 
-  ${Region}:hover & {
+  ${Region}:hover &,
+  ${ZoomButton}:focus-visible & {
     scale: 1.04;
   }
 `;

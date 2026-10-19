@@ -27,7 +27,8 @@ body {
   overflow-x: hidden;
 }
 
-body.menu-open {
+body.menu-open,
+body.lightbox-open {
   overflow: hidden;
 }
 

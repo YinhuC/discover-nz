@@ -1,11 +1,13 @@
 /* Third Party */
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { FiMaximize2 } from "react-icons/fi";
 
 /* Components */
 import SectionBand from "../../../Components/SectionBand";
 import ArrowLink from "../../../Components/ArrowLink";
 import { CursorContext } from "../../../Components/Cursor/Context/CursorContext";
 import { islands, licenseUrls } from "./constants";
+import Lightbox from "./Lightbox";
 import { dropWords, gsap, revealImage, ScrollTrigger } from "../../../Utils/motion";
 import {
   RegionsContainer,
@@ -16,6 +18,8 @@ import {
   RegionGrid,
   Region,
   Figure,
+  ZoomButton,
+  ZoomHint,
   RegionImage,
   ImageCaption,
   PhotoCredit,
@@ -52,7 +56,8 @@ function Credit({ credit }) {
   );
 }
 
-function RegionItem({ region }) {
+function RegionItem({ region, thumbRef, onOpen }) {
+  const { setType } = useContext(CursorContext);
   const itemRef = useRef(null);
 
   useEffect(() => {
@@ -74,14 +79,27 @@ function RegionItem({ region }) {
   return (
     <Region ref={itemRef}>
       <Figure className="region-figure">
-        <RegionImage
-          className="region-image"
-          src={region.image}
-          alt={`${region.caption}, ${region.name}`}
-          loading="lazy"
-          decoding="async"
-        />
-        <ImageCaption aria-hidden="true">{region.caption}</ImageCaption>
+        <ZoomButton
+          type="button"
+          onClick={onOpen}
+          onMouseEnter={() => setType("expand")}
+          onMouseLeave={() => setType("default")}
+          aria-label={`Enlarge photo of ${region.name}`}
+          aria-haspopup="dialog"
+        >
+          <RegionImage
+            ref={thumbRef}
+            className="region-image"
+            src={region.image}
+            alt={`${region.caption}, ${region.name}`}
+            loading="lazy"
+            decoding="async"
+          />
+          <ImageCaption aria-hidden="true">{region.caption}</ImageCaption>
+          <ZoomHint aria-hidden="true">
+            <FiMaximize2 />
+          </ZoomHint>
+        </ZoomButton>
       </Figure>
       <Credit credit={region.credit} />
       <RegionTitle className="region-copy">{region.name}</RegionTitle>
@@ -98,6 +116,9 @@ function RegionItem({ region }) {
 
 function IslandRegions({ island }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [openIndex, setOpenIndex] = useState(null);
+  const thumbs = useRef(new Map());
+  const openerRef = useRef(null);
   const { setType } = useContext(CursorContext);
   const headerRef = useRef(null);
   const gridId = `regions-${island.name.toLowerCase().replace(/\s+/g, "-")}`;
@@ -126,6 +147,17 @@ function IslandRegions({ island }) {
     ScrollTrigger.refresh();
   }, [isExpanded]);
 
+  const getThumb = useCallback(
+    (index) => thumbs.current.get(island.regions[index].link) ?? null,
+    [island.regions]
+  );
+
+  const dismissLightbox = (index) => {
+    setOpenIndex(null);
+    const returnTo = getThumb(index)?.closest("button") ?? openerRef.current;
+    returnTo?.focus({ preventScroll: true });
+  };
+
   return (
     <Island aria-labelledby={`${gridId}-title`}>
       <IslandHeader ref={headerRef}>
@@ -135,8 +167,22 @@ function IslandRegions({ island }) {
         <IslandCount>{island.regions.length} regions</IslandCount>
       </IslandHeader>
       <RegionGrid id={gridId}>
-        {visible.map((region) => (
-          <RegionItem key={region.link} region={region} />
+        {visible.map((region, index) => (
+          <RegionItem
+            key={region.link}
+            region={region}
+            onOpen={(event) => {
+              openerRef.current = event.currentTarget;
+              setOpenIndex(index);
+            }}
+            thumbRef={(image) => {
+              if (image) {
+                thumbs.current.set(region.link, image);
+              } else {
+                thumbs.current.delete(region.link);
+              }
+            }}
+          />
         ))}
       </RegionGrid>
       {island.regions.length > PREVIEW_COUNT && (
@@ -152,6 +198,15 @@ function IslandRegions({ island }) {
             ? `Show fewer ${island.name} regions`
             : `Show all ${island.regions.length} ${island.name} regions`}
         </ToggleButton>
+      )}
+      {openIndex !== null && (
+        <Lightbox
+          regions={island.regions}
+          index={openIndex}
+          getThumb={getThumb}
+          onNavigate={setOpenIndex}
+          onDismiss={dismissLightbox}
+        />
       )}
     </Island>
   );
