@@ -10,7 +10,9 @@ import "./style.scss";
 // Cursor taken from https://github.com/nicubarbaros/custom-mouse-change
 
 const isTouch = window.matchMedia("(pointer: coarse)").matches;
+const EASING = 0.1;
 
+/** Pointer-following cursor whose ring eases after the dot; animates only while the ring is catching up. */
 export const Cursor = () => {
   const { type } = useContext(CursorContext);
 
@@ -22,67 +24,59 @@ export const Cursor = () => {
     mouseY: 0,
     destinationX: 0,
     destinationY: 0,
-    distanceX: 0,
-    distanceY: 0,
-    key: -1,
+    hasMoved: false,
+    frame: null,
   });
 
   useEffect(() => {
+    if (isTouch) {
+      return undefined;
+    }
+    const position = positionRef.current;
+
+    const followMouse = () => {
+      const distanceX = position.mouseX - position.destinationX;
+      const distanceY = position.mouseY - position.destinationY;
+      if (Math.abs(distanceX) + Math.abs(distanceY) < 1) {
+        position.destinationX = position.mouseX;
+        position.destinationY = position.mouseY;
+        position.frame = null;
+      } else {
+        position.destinationX += distanceX * EASING;
+        position.destinationY += distanceY * EASING;
+        position.frame = requestAnimationFrame(followMouse);
+      }
+      if (secondaryCursor.current !== null) {
+        secondaryCursor.current.style.transform = `translate3d(${position.destinationX}px, ${position.destinationY}px, 0)`;
+      }
+    };
+
     const mouseEvent = (event) => {
       const { clientX, clientY } = event;
       if (secondaryCursor.current === null || mainCursor.current === null) {
         return;
       }
-      wrapperRef.current?.classList.add("is-active");
-      positionRef.current.mouseX =
-        clientX - secondaryCursor.current.clientWidth / 2;
-      positionRef.current.mouseY =
-        clientY - secondaryCursor.current.clientHeight / 2;
+      position.mouseX = clientX - secondaryCursor.current.clientWidth / 2;
+      position.mouseY = clientY - secondaryCursor.current.clientHeight / 2;
+      wrapperRef.current.classList.add("is-active");
+      if (!position.hasMoved) {
+        position.hasMoved = true;
+        position.destinationX = position.mouseX;
+        position.destinationY = position.mouseY;
+      }
       mainCursor.current.style.transform = `translate3d(${
         clientX - mainCursor.current.clientWidth / 2
       }px, ${clientY - mainCursor.current.clientHeight / 2}px, 0)`;
+      if (position.frame === null) {
+        position.frame = requestAnimationFrame(followMouse);
+      }
     };
 
     document.addEventListener("mousemove", mouseEvent);
-    return () => document.removeEventListener("mousemove", mouseEvent);
-  }, []);
-
-  useEffect(() => {
-    const followMouse = () => {
-      positionRef.current.key = requestAnimationFrame(followMouse);
-      const {
-        mouseX,
-        mouseY,
-        destinationX,
-        destinationY,
-        distanceX,
-        distanceY,
-      } = positionRef.current;
-      if (!destinationX || !destinationY) {
-        positionRef.current.destinationX = mouseX;
-        positionRef.current.destinationY = mouseY;
-      } else {
-        positionRef.current.distanceX = (mouseX - destinationX) * 0.1;
-        positionRef.current.distanceY = (mouseY - destinationY) * 0.1;
-        if (
-          Math.abs(positionRef.current.distanceX) +
-            Math.abs(positionRef.current.distanceY) <
-          0.1
-        ) {
-          positionRef.current.destinationX = mouseX;
-          positionRef.current.destinationY = mouseY;
-        } else {
-          positionRef.current.destinationX += distanceX;
-          positionRef.current.destinationY += distanceY;
-        }
-      }
-      if (secondaryCursor.current !== null) {
-        secondaryCursor.current.style.transform = `translate3d(${destinationX}px, ${destinationY}px, 0)`;
-      }
+    return () => {
+      document.removeEventListener("mousemove", mouseEvent);
+      cancelAnimationFrame(position.frame);
     };
-    followMouse();
-
-    return () => cancelAnimationFrame(positionRef.current.key);
   }, []);
 
   if (isTouch) {
