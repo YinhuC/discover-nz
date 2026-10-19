@@ -22,7 +22,7 @@ import { dropChars, gsap, isReducedMotion, ScrollTrigger } from "../../../Utils/
 
 const ENTRANCE_DELAY = 0.35;
 
-function HeaderSection() {
+function HeroSection() {
   const heroRef = useRef(null);
   const nameRef = useRef(null);
 
@@ -107,4 +107,4 @@ function HeaderSection() {
   );
 }
 
-export default HeaderSection;
+export default HeroSection;

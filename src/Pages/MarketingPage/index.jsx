@@ -2,7 +2,7 @@
 import React from "react";
 
 /* Components */
-import HeaderSection from "./HeaderSection";
+import HeroSection from "./HeroSection";
 import BeforeYouGoSection from "./BeforeYouGoSection";
 import SlideSection from "./SlideSection";
 import RegionSection from "./RegionSection";
@@ -15,7 +15,7 @@ function MarketingPage() {
   return (
     <Main>
       <title>Discover New Zealand</title>
-      <HeaderSection />
+      <HeroSection />
       <BeforeYouGoSection />
       <SlideSection />
       <RegionSection />
