@@ -1,8 +1,8 @@
-import auckland from "../../Images/55-Auckland-Harbour-AWADS-min.jpg";
-import ruapehu from "../../Images/L344-Mount-Ruapehu-Ruapehu-Penny-Egleton-min.jpg";
-import marlborough from "../../Images/154-Marlborough-sounds-min.jpg";
-import queenstown from "../../Images/0864-Glenorchy-Queenstown-Miles-Holden-min.jpg";
-import christchurch from "../../Images/9180-Port-Hills-Christchurch-Julian-Apse-min.jpg";
+import auckland from "../../Images/55-Auckland-Harbour-AWADS-min.webp";
+import ruapehu from "../../Images/L344-Mount-Ruapehu-Ruapehu-Penny-Egleton-min.webp";
+import marlborough from "../../Images/154-Marlborough-sounds-min.webp";
+import queenstown from "../../Images/0864-Glenorchy-Queenstown-Miles-Holden-min.webp";
+import christchurch from "../../Images/9180-Port-Hills-Christchurch-Julian-Apse-min.webp";
 
 export const locations = [
   {
