@@ -1,8 +1,5 @@
 /* Third Party */
 import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 
 /* Components */
 import {
@@ -16,10 +13,9 @@ import {
   EssentialText,
 } from "./style";
 import ArrowLink from "../../../Components/ArrowLink";
+import { dropWords, gsap, riseLines, wipeRows } from "../../../Utils/motion";
 
 /* Functions */
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const essentials = [
   {
@@ -53,24 +49,9 @@ function BeforeYouGoSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const split = new SplitText(".before-intro", { type: "lines" });
-      gsap.from([".before-title", split.lines], {
-        delay: 0.2,
-        duration: 1,
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        ease: "power2",
-        scrollTrigger: { trigger: ".before-intro", start: "top 85%" },
-      });
-      gsap.from(".before-item", {
-        duration: 0.9,
-        y: 24,
-        opacity: 0,
-        stagger: 0.12,
-        ease: "power2",
-        scrollTrigger: { trigger: ".before-list", start: "top 85%" },
-      });
+      dropWords(".before-title");
+      riseLines(".before-intro", { delay: 0.35, trigger: ".before-title" });
+      wipeRows(gsap.utils.toArray(".before-item"), { trigger: ".before-list" });
     }, sectionRef);
     return () => ctx.revert();
   }, []);

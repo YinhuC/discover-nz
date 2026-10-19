@@ -11,9 +11,15 @@ export const MainContainer = styled.section`
   background-color: var(--ink);
 `;
 
-export const ImageContainer = styled.div`
+export const ImageFrame = styled.div`
   position: relative;
   flex: 1 1 50%;
+  overflow: hidden;
+`;
+
+export const ImageContainer = styled.div`
+  position: absolute;
+  inset: 0;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -41,10 +47,11 @@ export const TopContainer = styled.div`
 export const LocationText = styled.h1`
   margin: 0;
   text-transform: uppercase;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-family: var(--serif);
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-size: clamp(4rem, 9vw, 9rem);
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 0.85;
+  text-align: center;
   color: var(--paper);
 `;
 
@@ -115,11 +122,11 @@ export const HighlightText = styled.p`
 
 export const NextImage = styled.div`
   position: absolute;
-  inset: 0;
+  inset: -12% 0;
   background-size: cover;
   background-position: center;
   opacity: 0.45;
-  transition: opacity 0.6s ease, transform 1.2s var(--ease-out);
+  transition: opacity 0.6s ease, scale 1.2s var(--ease-out);
 `;
 
 export const NextLink = styled(Link)`
@@ -144,7 +151,7 @@ export const NextLink = styled(Link)`
 
   &:hover ${NextImage}, &:focus-visible ${NextImage} {
     opacity: 0.65;
-    transform: scale(1.04);
+    scale: 1.04;
   }
 `;
 

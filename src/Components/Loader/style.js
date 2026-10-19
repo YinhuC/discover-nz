@@ -25,15 +25,27 @@ export const LoaderContainer = styled.div`
   text-align: center;
 
   background-color: var(--ink);
+  clip-path: inset(0% 0% ${({ $isLeaving }) => ($isLeaving ? "100%" : "0%")} 0%);
+  transition: clip-path 1s cubic-bezier(0.87, 0, 0.13, 1);
+`;
+
+export const LoaderInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.8s cubic-bezier(0.7, 0, 0.84, 0), opacity 0.6s ease;
+  ${({ $isLeaving }) => $isLeaving && "transform: translateY(-48px); opacity: 0;"}
 `;
 
 export const LoaderTitle = styled.p`
   margin: 0;
   color: var(--paper);
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1.15;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.9;
+  text-transform: uppercase;
   text-wrap: balance;
   animation: ${rise} 1s var(--ease-out) both;
 `;

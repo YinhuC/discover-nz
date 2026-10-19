@@ -1,7 +1,7 @@
 /* Third Party */
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
-import { gsap } from "gsap";
+import { gsap, isReducedMotion } from "./Utils/motion";
 
 /* Components */
 import MarketingPage from "./Pages/MarketingPage";
@@ -13,6 +13,7 @@ import { locations } from "./Pages/LocationPages/constants";
 import Loader from "./Components/Loader";
 
 const MIN_LOADER_MS = 1800;
+const LOADER_EXIT_MS = 1100;
 
 function useScrollOnNavigate(isReady) {
   const { pathname, hash } = useLocation();
@@ -26,43 +27,53 @@ function useScrollOnNavigate(isReady) {
       return;
     }
     const frame = requestAnimationFrame(() => {
-      document.getElementById(hash.slice(1))?.scrollIntoView();
+      document.getElementById(hash.slice(1))?.scrollIntoView({
+        behavior: isReducedMotion() ? "auto" : "smooth",
+      });
     });
     return () => cancelAnimationFrame(frame);
   }, [pathname, hash, isReady]);
 }
 
 export function Routing() {
-  const [loader, setLoader] = useState(true);
-  useScrollOnNavigate(!loader);
+  const [phase, setPhase] = useState("loading");
+  const { pathname } = useLocation();
+  useScrollOnNavigate(phase !== "loading");
+  const isHeaderCovered = phase === "loading" && pathname === "/";
 
   useEffect(() => {
     let isActive = true;
     const minimumWait = new Promise((resolve) =>
       setTimeout(resolve, MIN_LOADER_MS)
     );
+    let exitTimer;
     Promise.all([document.fonts.ready, minimumWait]).then(() => {
       if (isActive) {
-        setLoader(false);
+        setPhase("leaving");
+        exitTimer = setTimeout(() => setPhase("done"), LOADER_EXIT_MS);
       }
     });
     return () => {
       isActive = false;
+      clearTimeout(exitTimer);
     };
   }, []);
 
   useEffect(() => {
+    if (isHeaderCovered) {
+      return;
+    }
     const ctx = gsap.context(() => {
       gsap.from("#site-header", {
         delay: 0.5,
         duration: 1,
-        y: 20,
+        yPercent: -100,
         opacity: 0,
-        ease: "power2",
+        ease: "expo.out",
       });
     });
     return () => ctx.revert();
-  }, []);
+  }, [isHeaderCovered]);
 
   return (
     <>
@@ -73,7 +84,15 @@ export function Routing() {
 
       <main id="main">
         <Routes>
-          <Route path="/" element={loader ? <Loader /> : <MarketingPage />} />
+          <Route
+            path="/"
+            element={
+              <>
+                {phase !== "loading" && <MarketingPage />}
+                {phase !== "done" && <Loader isLeaving={phase === "leaving"} />}
+              </>
+            }
+          />
 
           {locations.map((location, index) => (
             <Route

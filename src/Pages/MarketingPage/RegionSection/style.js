@@ -12,13 +12,26 @@ export const RegionsContainer = styled.div`
 export const Island = styled.section``;
 
 export const IslandHeader = styled.div`
+  --rule-scale: 1;
+  position: relative;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
   padding-bottom: 20px;
   margin-bottom: clamp(32px, 5vh, 48px);
-  border-bottom: 1px solid var(--ink);
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--ink);
+    transform: scaleX(var(--rule-scale));
+    transform-origin: left;
+  }
 `;
 
 export const IslandTitle = styled.h3`
@@ -72,10 +85,10 @@ export const RegionImage = styled.img`
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 1.2s var(--ease-out);
+  transition: scale 1.2s var(--ease-out);
 
   ${Region}:hover & {
-    transform: scale(1.04);
+    scale: 1.04;
   }
 `;
 

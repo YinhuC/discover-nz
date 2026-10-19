@@ -5,6 +5,7 @@
   --sky: rgb(171, 213, 255);
   --muted: #4a4a4a;
   --hairline: rgba(17, 17, 17, 0.14);
+  --display: "Big Shoulders", "Arial Narrow", sans-serif;
   --serif: "Playfair Display", Georgia, serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -13,7 +14,6 @@
 html {
   height: 100%;
   margin: 0;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -70,11 +70,13 @@ a {
   white-space: nowrap;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+.split-word-mask,
+.split-line-mask {
+  padding: 0 0.08em 0.14em;
+  margin: 0 -0.08em -0.14em;
+}
 
+@media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {

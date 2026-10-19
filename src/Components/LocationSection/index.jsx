@@ -1,11 +1,11 @@
 /* Third Party */
 import React, { useContext, useEffect, useRef } from "react";
 import { FiArrowRight } from "react-icons/fi";
-import { gsap } from "gsap";
 
 /* Components */
 import {
   MainContainer,
+  ImageFrame,
   ImageContainer,
   TopContainer,
   LocationText,
@@ -25,69 +25,104 @@ import {
 } from "./style";
 import ArrowLink from "../ArrowLink";
 import { CursorContext } from "../Cursor/Context/CursorContext";
+import {
+  dropChars,
+  gsap,
+  isReducedMotion,
+  revealImage,
+  riseLines,
+  wipeRows,
+} from "../../Utils/motion";
 
 /* Functions */
 
 function LocationPage({ location, next, previous }) {
   const { setType } = useContext(CursorContext);
-  const heroRef = useRef(null);
+  const pageRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".location-panel", {
-        duration: 1.1,
-        xPercent: -100,
-        ease: "power3.out",
+      const reduced = isReducedMotion();
+
+      if (!reduced) {
+        gsap.from(".location-panel", {
+          xPercent: 100,
+          duration: 1.2,
+          ease: "expo.inOut",
+        });
+      }
+      revealImage(".location-image-frame", ".location-image", {
+        from: "top",
+        delay: 0.15,
+        trigger: null,
       });
-      gsap.from(".location-image", {
-        delay: 0.2,
-        duration: 1.1,
-        y: -40,
+      dropChars(".location-title", { delay: 0.75, stagger: 0.04 });
+      gsap.from(".location-credit", {
         opacity: 0,
-        ease: "power3.out",
-      });
-      gsap.from(".location-text", {
-        delay: 0.6,
+        y: reduced ? 0 : 16,
         duration: 0.9,
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        ease: "power2",
+        delay: 1.3,
+        ease: "expo.out",
       });
-    }, heroRef);
+
+      riseLines(".location-intro");
+      wipeRows(gsap.utils.toArray(".location-highlight"), {
+        trigger: ".location-highlights",
+      });
+
+      if (!reduced) {
+        gsap.fromTo(
+          ".next-image",
+          { yPercent: -10 },
+          {
+            yPercent: 10,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".next-link",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      }
+      dropChars(".next-name-text", { trigger: ".next-link", stagger: 0.035 });
+    }, pageRef);
     return () => ctx.revert();
   }, [location.slug]);
 
   return (
-    <article aria-labelledby="location-title">
+    <article ref={pageRef} aria-labelledby="location-title">
       <title>{`${location.name} · Discover New Zealand`}</title>
-      <MainContainer ref={heroRef} className="flex-column flex-md-row">
-        <ImageContainer
-          className="location-image"
-          role="img"
-          aria-label={`Landscape in ${location.name}`}
-          style={{ backgroundImage: `url(${location.image})` }}
-        />
+      <MainContainer className="flex-column flex-md-row">
+        <ImageFrame className="location-image-frame">
+          <ImageContainer
+            className="location-image"
+            role="img"
+            aria-label={`Landscape in ${location.name}`}
+            style={{ backgroundImage: `url(${location.image})` }}
+          />
+        </ImageFrame>
         <TopContainer
           className="location-panel"
           style={{ backgroundColor: location.colour }}
         >
-          <LocationText id="location-title" className="location-text">
+          <LocationText id="location-title" className="location-title">
             {location.name}
           </LocationText>
-          <HeroCredit className="location-text">
+          <HeroCredit className="location-credit">
             Photo: {location.credit}
           </HeroCredit>
         </TopContainer>
       </MainContainer>
 
       <Details>
-        <Intro>{location.intro}</Intro>
+        <Intro className="location-intro">{location.intro}</Intro>
         <div>
           <HighlightsTitle>Highlights</HighlightsTitle>
-          <HighlightList>
+          <HighlightList className="location-highlights">
             {location.highlights.map((highlight) => (
-              <Highlight key={highlight.title}>
+              <Highlight key={highlight.title} className="location-highlight">
                 <HighlightTitle>{highlight.title}</HighlightTitle>
                 <HighlightText>{highlight.text}</HighlightText>
               </Highlight>
@@ -97,15 +132,19 @@ function LocationPage({ location, next, previous }) {
       </Details>
 
       <NextLink
+        className="next-link"
         to={`/location/${next.slug}`}
         style={{ backgroundColor: next.colour }}
         onMouseEnter={() => setType("expand")}
         onMouseLeave={() => setType("default")}
       >
-        <NextImage style={{ backgroundImage: `url(${next.image})` }} />
+        <NextImage
+          className="next-image"
+          style={{ backgroundImage: `url(${next.image})` }}
+        />
         <NextLabel>Next destination</NextLabel>
         <NextName>
-          {next.name}
+          <span className="next-name-text">{next.name}</span>
           <FiArrowRight aria-hidden="true" />
         </NextName>
       </NextLink>

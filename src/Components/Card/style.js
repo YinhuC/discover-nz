@@ -7,7 +7,7 @@ export const CardImage = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transition: transform 1.2s var(--ease-out);
+  transition: scale 1.2s var(--ease-out);
 `;
 
 export const ImageContainer = styled(Link)`
@@ -27,7 +27,7 @@ export const ImageContainer = styled(Link)`
   }
 
   &:hover ${CardImage}, &:focus-visible ${CardImage} {
-    transform: scale(1.05);
+    scale: 1.05;
   }
 `;
 
