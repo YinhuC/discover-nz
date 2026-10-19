@@ -90,7 +90,7 @@ function LocationPage({ location, next, previous }) {
       dropChars(".next-name-text", { trigger: ".next-link", stagger: 0.035 });
     }, pageRef);
     return () => ctx.revert();
-  }, [location.slug]);
+  }, []);
 
   return (
     <article ref={pageRef} aria-labelledby="location-title">

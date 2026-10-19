@@ -124,6 +124,7 @@ export function Routing() {
               path={locationPath(location.slug)}
               element={
                 <LocationPage
+                  key={location.slug}
                   location={location}
                   next={locations[(index + 1) % locations.length]}
                   previous={
