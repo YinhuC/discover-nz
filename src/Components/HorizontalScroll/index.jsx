@@ -47,9 +47,9 @@ const HorizontalScroll = ({ children }) => {
   }, []);
 
   return (
-    <TallOuterContainer dynamicheight={dynamicheight}>
+    <TallOuterContainer $dynamicheight={dynamicheight}>
       <StickyInnerContainer ref={containerRef}>
-        <HorizontalTranslateContainer translatex={translatex} ref={objectRef}>
+        <HorizontalTranslateContainer $translatex={translatex} ref={objectRef}>
           {children}
         </HorizontalTranslateContainer>
       </StickyInnerContainer>

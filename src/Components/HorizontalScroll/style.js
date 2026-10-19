@@ -1,16 +1,16 @@
 import styled from "styled-components";
 /*https://sudo.isl.co/translate-vertical-horizontal/*/
 
-export const TallOuterContainer = styled.div.attrs(({ dynamicheight }) => ({
-  style: { height: `${dynamicheight}px` },
+export const TallOuterContainer = styled.div.attrs(({ $dynamicheight }) => ({
+  style: { height: `${$dynamicheight}px` },
 }))`
   position: relative;
   width: 100%;
 `;
 
 export const HorizontalTranslateContainer = styled.div.attrs(
-  ({ translatex }) => ({
-    style: { transform: `translateX(${translatex}px)` },
+  ({ $translatex }) => ({
+    style: { transform: `translateX(${$translatex}px)` },
   })
 )`
   position: absolute;
