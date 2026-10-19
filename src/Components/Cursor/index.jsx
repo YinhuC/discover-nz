@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 
 /* Components */
 import { CursorContext } from "./Context/CursorContext";
@@ -9,12 +9,15 @@ import "./style.scss";
 
 // Cursor taken from https://github.com/nicubarbaros/custom-mouse-change
 
+const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
 export const Cursor = () => {
   const { type } = useContext(CursorContext);
 
-  const secondaryCursor = React.useRef(null);
-  const mainCursor = React.useRef(null);
-  const positionRef = React.useRef({
+  const wrapperRef = useRef(null);
+  const secondaryCursor = useRef(null);
+  const mainCursor = useRef(null);
+  const positionRef = useRef({
     mouseX: 0,
     mouseY: 0,
     destinationX: 0,
@@ -23,36 +26,25 @@ export const Cursor = () => {
     distanceY: 0,
     key: -1,
   });
-  let touch = "";
-
-  if (window.matchMedia("(pointer: coarse)").matches) {
-    touch = "d-none";
-  } else {
-    touch = "";
-  }
-
-  const mouseEvent = (event) => {
-    const { clientX, clientY } = event;
-
-    const mouseX = clientX;
-    const mouseY = clientY;
-    if (secondaryCursor.current !== null) {
-      positionRef.current.mouseX =
-        mouseX - secondaryCursor.current.clientWidth / 2;
-      positionRef.current.mouseY =
-        mouseY - secondaryCursor.current.clientHeight / 2;
-      mainCursor.current.style.transform = `translate3d(${
-        mouseX - mainCursor.current.clientWidth / 2
-      }px, ${mouseY - mainCursor.current.clientHeight / 2}px, 0)`;
-    }
-  };
 
   useEffect(() => {
-    document.addEventListener("mousemove", (event) => mouseEvent(event));
-
-    return function cleanup() {
-      window.removeEventListener("mousemove", (event) => mouseEvent(event));
+    const mouseEvent = (event) => {
+      const { clientX, clientY } = event;
+      if (secondaryCursor.current === null || mainCursor.current === null) {
+        return;
+      }
+      wrapperRef.current?.classList.add("is-active");
+      positionRef.current.mouseX =
+        clientX - secondaryCursor.current.clientWidth / 2;
+      positionRef.current.mouseY =
+        clientY - secondaryCursor.current.clientHeight / 2;
+      mainCursor.current.style.transform = `translate3d(${
+        clientX - mainCursor.current.clientWidth / 2
+      }px, ${clientY - mainCursor.current.clientHeight / 2}px, 0)`;
     };
+
+    document.addEventListener("mousemove", mouseEvent);
+    return () => document.removeEventListener("mousemove", mouseEvent);
   }, []);
 
   useEffect(() => {
@@ -84,28 +76,31 @@ export const Cursor = () => {
           positionRef.current.destinationY += distanceY;
         }
       }
-      if (secondaryCursor.current !== null)
+      if (secondaryCursor.current !== null) {
         secondaryCursor.current.style.transform = `translate3d(${destinationX}px, ${destinationY}px, 0)`;
+      }
     };
     followMouse();
 
-    return function cleanup() {
-      cancelAnimationFrame(positionRef.key);
-    };
+    return () => cancelAnimationFrame(positionRef.current.key);
   }, []);
+
+  if (isTouch) {
+    return null;
+  }
 
   return (
     <div
-      className={`cursor-wrapper ${type} ${touch}`}
-      style={{ height: "0px" }}
+      ref={wrapperRef}
+      className={`cursor-wrapper ${type}`}
+      aria-hidden="true"
     >
-      <div className="main-cursor " ref={mainCursor}>
+      <div className="main-cursor" ref={mainCursor}>
         <div className="main-cursor-background"></div>
       </div>
       <div className="secondary-cursor" ref={secondaryCursor}>
         <div className="cursor-background"></div>
       </div>
-      ;
     </div>
   );
 };

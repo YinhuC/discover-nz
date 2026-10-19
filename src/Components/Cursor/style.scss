@@ -1,10 +1,14 @@
+.cursor-wrapper:not(.is-active) {
+  visibility: hidden;
+}
+
 .main-cursor,
 .secondary-cursor {
   z-index: 9999;
-
+  top: 0;
+  left: 0;
   pointer-events: none;
-  // overflow: hidden;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(-100px, -100px, 0);
   position: fixed;
 }
 
