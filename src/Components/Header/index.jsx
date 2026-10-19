@@ -1,9 +1,9 @@
 /* Third Party */
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { Row, Col, Container, Fade } from "reactstrap";
+import { useLocation } from "react-router";
 
 /* Components */
-import { Center, TourismTextContainer, MenuButton, TourismText } from "./style";
+import { Bar, BarInner, TourismTextContainer, MenuButton, TourismText } from "./style";
 import { MenuIcon } from "../Icons/Menu";
 import DropdownMenu from "../DropdownMenu";
 import "./style.scss";
@@ -12,76 +12,78 @@ import { CursorContext } from "../Cursor/Context/CursorContext";
 /* Functions */
 
 function Header() {
-  const [scrollUp, setScrollUp] = useState(true);
-  const [prevScroll, setPrevScroll] = useState(0);
-  const [color, setColor] = useState("white");
+  const [isHidden, setIsHidden] = useState(false);
+  const [isPastHero, setIsPastHero] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { setType } = useContext(CursorContext);
-  const fadeRef = useRef(null);
+  const { pathname, hash } = useLocation();
+  const lastScrollRef = useRef(0);
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-
-    return function cleanup() {
-      document.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsHidden(scrollY > lastScrollRef.current && scrollY > 120);
+      setIsPastHero(scrollY > window.innerHeight - 80);
+      lastScrollRef.current = scrollY;
     };
-  });
 
-  // Handle scroll event to hide or show header
-  const handleScroll = () => {
-    const menuOpen = document.getElementById("dropdown").style.height === "50%";
-    const scrollingUp = window.scrollY > prevScroll && !menuOpen ? false : true;
-    const getColor =
-      window.scrollY > window.innerHeight - 80 && !menuOpen ? "black" : "white";
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    setScrollUp(scrollingUp);
-    setPrevScroll(window.scrollY);
-    setColor(getColor);
-  };
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname, hash]);
 
-  // Update the state when the menu is clicked
-  const handleMenuClick = () => {
-    if (isMenuOpen === true) {
-      document.activeElement.blur();
-    } else {
-      setColor("white");
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", isMenuOpen);
+    if (!isMenuOpen) {
+      return undefined;
     }
-    setIsMenuOpen(!isMenuOpen);
-  };
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMenuOpen]);
+
+  const isSolid = isPastHero && !isMenuOpen;
+  const color = isSolid ? "var(--ink)" : "var(--paper)";
 
   return (
-    <section>
-      <DropdownMenu menuHeight={isMenuOpen ? "50" : "0"} />
-      <Fade in={scrollUp} innerRef={fadeRef}>
-        <Center>
-          <Container id="promote-header">
-            <Row className="d-flex justify-content-center mt-5">
-              <Col className="col-11 d-none d-md-flex justify-content-start mt-3">
-                <TourismTextContainer
-                  onMouseEnter={() => setType("expand")}
-                  onMouseLeave={() => setType("default")}
-                  to="/"
-                >
-                  <TourismText style={{ color: color }}>
-                    Promote Tourism NZ
-                  </TourismText>
-                </TourismTextContainer>
-              </Col>
-              <Col className="col-1 d-flex justify-content-center mt-3">
-                <MenuButton
-                  className={
-                    isMenuOpen ? "Menu-toggle-open" : "Menu-toggle-closed"
-                  }
-                  onClick={handleMenuClick}
-                >
-                  <MenuIcon color={color} />
-                </MenuButton>
-              </Col>
-            </Row>
-          </Container>
-        </Center>
-      </Fade>
-    </section>
+    <header>
+      <DropdownMenu
+        isOpen={isMenuOpen}
+        onNavigate={() => setIsMenuOpen(false)}
+      />
+      <Bar $isHidden={isHidden && !isMenuOpen} $isSolid={isSolid}>
+        <BarInner id="promote-header">
+          <TourismTextContainer
+            onMouseEnter={() => setType("expand")}
+            onMouseLeave={() => setType("default")}
+            to="/"
+          >
+            <TourismText style={{ color }}>Promote Tourism NZ</TourismText>
+          </TourismTextContainer>
+          <MenuButton
+            ref={menuButtonRef}
+            type="button"
+            className={isMenuOpen ? "Menu-toggle-open" : "Menu-toggle-closed"}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="site-menu"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <MenuIcon color={color} />
+          </MenuButton>
+        </BarInner>
+      </Bar>
+    </header>
   );
 }
 
