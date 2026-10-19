@@ -25,8 +25,6 @@ const usefulLinks = [
   { href: "https://icons8.com/", label: "Icons from Icons8" },
 ];
 
-const currentYear = new Date().getFullYear();
-
 function Footer() {
   return (
     <FooterContainer>
@@ -70,9 +68,7 @@ function Footer() {
         </div>
       </FooterGrid>
       <FooterBottom>
-        <Copyright>
-          © 2020–{currentYear} Discover New Zealand. Developed by SNYC.
-        </Copyright>
+        <Copyright>© 2020 Discover New Zealand.</Copyright>
       </FooterBottom>
     </FooterContainer>
   );
