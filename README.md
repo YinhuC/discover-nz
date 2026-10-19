@@ -34,3 +34,18 @@ To run Discover New Zealand locally, follow these steps:
 
     npm run build
     npm run preview
+
+# Deploying
+
+---
+
+The site deploys to Vercel as a static Vite build. `vercel.json` sets the output directory to `build/`, sends every route to `index.html` so client-side routes like `/location/...` load on refresh, and caches the hashed files in `build/assets/` for a year.
+
+**1.** Import the GitHub repository at https://vercel.com/new. The settings come from `vercel.json` and the Node version from `engines` in `package.json`, so the defaults can be left as they are.
+
+**2.** Every push to `master` then deploys to production, and other branches get preview deployments.
+
+To deploy from the terminal instead:
+
+    npx vercel        # preview deployment
+    npx vercel --prod # production deployment
