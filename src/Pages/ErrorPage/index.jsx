@@ -1,6 +1,3 @@
-/* Third Party */
-import React from "react";
-
 /* Components */
 import { ErrorSection, ErrorTitle, ErrorText } from "./style";
 import ArrowLink from "../../Components/ArrowLink";

@@ -1,4 +1,3 @@
-import React from "react";
 import { FiArrowDown } from "react-icons/fi";
 import { useCursorHover } from "../../Cursor/Context/CursorContext";
 import { Main } from "./style";

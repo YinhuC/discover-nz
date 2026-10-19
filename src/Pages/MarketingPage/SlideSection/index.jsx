@@ -1,6 +1,3 @@
-/* Third Party */
-import React from "react";
-
 /* Components */
 import HorizontalScroll from "../../../Components/HorizontalScroll";
 import SectionBand from "../../../Components/SectionBand";

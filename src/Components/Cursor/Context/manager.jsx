@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CursorContext } from "./CursorContext";
 import { Cursor } from "..";
 

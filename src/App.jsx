@@ -1,5 +1,4 @@
 /* Third Party */
-import React from "react";
 import { BrowserRouter as Router } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
 

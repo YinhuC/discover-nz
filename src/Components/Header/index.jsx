@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 
 /* Components */

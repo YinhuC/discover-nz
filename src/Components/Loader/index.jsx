@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 /* Components */
 import { LoaderContainer, LoaderInner, LoaderTitle, LoaderSubtitle, Separator } from "./style";

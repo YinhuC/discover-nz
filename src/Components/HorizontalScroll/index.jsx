@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { ScrollTrigger } from "../../Utils/motion";
 import {
   StickyInnerContainer,

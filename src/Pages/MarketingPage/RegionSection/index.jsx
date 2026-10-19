@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FiMaximize2 } from "react-icons/fi";
 
 /* Components */

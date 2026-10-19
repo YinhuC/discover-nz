@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation, useNavigationType } from "react-router";
 import { gsap, isReducedMotion } from "./Utils/motion";
 

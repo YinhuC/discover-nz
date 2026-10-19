@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { FiArrowLeft, FiArrowRight, FiX } from "react-icons/fi";
 
 /* Components */

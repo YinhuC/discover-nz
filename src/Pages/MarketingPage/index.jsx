@@ -1,6 +1,3 @@
-/* Third Party */
-import React from "react";
-
 /* Components */
 import HeroSection from "./HeroSection";
 import BeforeYouGoSection from "./BeforeYouGoSection";

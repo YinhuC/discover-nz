@@ -1,5 +1,4 @@
 /* Third Party */
-import React from "react";
 import { useCursorHover } from "../../Cursor/Context/CursorContext";
 
 /* Components */
