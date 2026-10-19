@@ -1,81 +1,79 @@
 /* Third Party */
-import React, { useContext } from 'react';
-import { Container, Row, Col, Button } from 'reactstrap';
+import React from "react";
 
 /* Components */
-import { FooterContainer, Copyright, FooterText, FooterLinks } from './style';
-import { CursorContext } from '../Cursor/Context/CursorContext';
+import {
+  FooterContainer,
+  FooterGrid,
+  FooterHeading,
+  FooterList,
+  FooterLink,
+  FooterText,
+  FooterBottom,
+  Copyright,
+} from "./style";
+import ArrowLink from "../ArrowLink";
 
 /* Functions */
 
-function Footer() {
-  const { setType } = useContext(CursorContext);
+const usefulLinks = [
+  { href: "https://www.newzealand.com/", label: "100% Pure New Zealand" },
+  { href: "https://www.tourismnewzealand.com/", label: "Tourism New Zealand" },
+  { href: "https://visuals.newzealand.com/", label: "Tourism NZ Visual Library" },
+  { href: "https://commons.wikimedia.org/", label: "Wikimedia Commons" },
+  { href: "https://shotcut.org/", label: "Shotcut Video Editor" },
+  { href: "https://icons8.com/", label: "Icons from Icons8" },
+];
 
+const currentYear = new Date().getFullYear();
+
+function Footer() {
   return (
     <FooterContainer>
-      <Container style={{ marginBottom: '150px' }}>
-        <Row>
-          <Col className="col-12 col-lg-3 d-flex flex-column">
-            <FooterText>Useful Links</FooterText>
-            <FooterLinks
-              href="https://www.tourismnewzealand.com/"
-              target="_blank"
-            >
-              Tourism New Zealand
-            </FooterLinks>
-            <FooterLinks href="https://visuals.newzealand.com/" target="_blank">
-              Visual Library
-            </FooterLinks>
-            <FooterLinks href="mailto: yinhucui@gmail.com" target="_blank">
-              Contact Us
-            </FooterLinks>
-            <FooterLinks
-              href="https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus"
-              target="_blank"
-            >
-              COVID-19 NZ Situtation
-            </FooterLinks>
-            <FooterLinks href="https://shotcut.org/" target="_blank">
-              Shotcut Video Editor
-            </FooterLinks>
-            <FooterLinks href="https://icons8.com/" target="_blank">
-              Icons From Icons8
-            </FooterLinks>
-          </Col>
+      <FooterGrid>
+        <nav aria-labelledby="footer-links-title">
+          <FooterHeading id="footer-links-title">Useful links</FooterHeading>
+          <FooterList>
+            {usefulLinks.map((link) => (
+              <li key={link.href}>
+                <FooterLink
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.label}
+                </FooterLink>
+              </li>
+            ))}
+            <li>
+              <FooterLink href="mailto:yinhucui@gmail.com">Contact</FooterLink>
+            </li>
+          </FooterList>
+        </nav>
 
-          <Col className="col-12 col-lg-9 pl-3 pl-lg-5 mt-5 mt-lg-0 d-flex flex-column">
-            <FooterText>
-              This web application was designed as a personal project to promote
-              tourism, and to start encoruaging New Zealanders to travel within
-              New Zealand.
-            </FooterText>
-            <FooterText className="mb-3">
-              The main video is created using Shotcut. Shotcut is a free, open
-              source, cross-platform video editor. Images and videos used in
-              this website are from Tourism New Zealand. Click below to learn
-              more and support tourism in New Zealand.
-            </FooterText>
-            <Button
-              href="https://www.newzealand.com/int/"
-              target="_blank"
-              size="lg"
-              theme="light"
-              onMouseEnter={() => setType('expand')}
-              onMouseLeave={() => setType('default')}
-            >
-              Learn More
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-      <hr style={{ backgroundColor: 'lightgray' }} />
-      <Container>
-        <Row>
-          <Col className="mb-3 text-center">
-            <Copyright>© 2020 Promote NZ Tourism. Developed by SNYC</Copyright>
-          </Col>
-        </Row>
-      </Container>
+        <div>
+          <FooterHeading>About this site</FooterHeading>
+          <FooterText>
+            Promote Tourism NZ is a personal, non-commercial project designed to
+            encourage New Zealanders, and everyone else, to travel within New
+            Zealand.
+          </FooterText>
+          <FooterText>
+            The hero video was edited with Shotcut, a free, open source video
+            editor. The video and destination photos are from Tourism New
+            Zealand. Region photos are from Wikimedia Commons contributors and
+            are credited, with their licences, on each card.
+          </FooterText>
+          <ArrowLink href="https://www.newzealand.com/int/">
+            Learn more at newzealand.com
+          </ArrowLink>
+        </div>
+      </FooterGrid>
+      <FooterBottom>
+        <Copyright>
+          © 2020–{currentYear} Promote Tourism NZ. Developed by SNYC.
+        </Copyright>
+      </FooterBottom>
     </FooterContainer>
   );
 }

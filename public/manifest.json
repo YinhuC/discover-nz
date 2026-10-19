@@ -5,10 +5,10 @@
     {
       "src": "icons8-new-zealand-48.png",
       "sizes": "48x48",
-      "type": "image/x-icon"
+      "type": "image/png"
     }
   ],
-  "start_url": "./explore",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

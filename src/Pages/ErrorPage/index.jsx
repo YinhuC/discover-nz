@@ -1,32 +1,25 @@
 /* Third Party */
 import React from "react";
-import { Link } from "react-router";
-import { Container, Row, Col, Button } from "reactstrap";
 
 /* Components */
-import { BumperSection, ErrorText } from "./style";
+import { ErrorSection, ErrorTitle, ErrorText } from "./style";
+import ArrowLink from "../../Components/ArrowLink";
 
 /* Functions */
 
 function ErrorPage() {
   return (
-    <BumperSection>
-      <Container>
-        <Row className="d-flex flex-column">
-          <Col>
-            <ErrorText>Error, 404 Page not found...</ErrorText>
-            <ErrorText>I think you went the wrong way.</ErrorText>
-          </Col>
-          <Col className="mt-5">
-            <Link to="/">
-              <Button theme="light" size="lg">
-                Back to exploring
-              </Button>
-            </Link>
-          </Col>
-        </Row>
-      </Container>
-    </BumperSection>
+    <ErrorSection aria-labelledby="error-title">
+      <title>Page not found · Promote Tourism NZ</title>
+      <ErrorTitle id="error-title">
+        Page <em>not found</em>
+      </ErrorTitle>
+      <ErrorText>
+        I think you went the wrong way. The page you're looking for doesn't
+        exist, but there's plenty of New Zealand left to see.
+      </ErrorText>
+      <ArrowLink to="/">Back to exploring</ArrowLink>
+    </ErrorSection>
   );
 }
 

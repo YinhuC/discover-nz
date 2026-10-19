@@ -1,79 +1,56 @@
 /* Third Party */
-import React, { useEffect } from "react";
-import { Row, Col } from "reactstrap";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 /* Components */
 import {
-  BackgroundContainer,
-  HeaderContainer,
+  Hero,
   BackgroundVideo,
-  VideoContainer,
-  MainContainer,
+  Scrim,
+  HeroContent,
+  HeroTitle,
+  HeroSubtitle,
 } from "./style";
 import video from "../../../Videos/dark.mp4";
 import { DownArrow } from "../../../Components/Icons/DownArrow";
 
 /* Functions */
-/* need to actually wrap the icon AND cursor for it to change, also need 
-the cursor to be a direct child of cursor manager */
 
 function HeaderSection() {
-  const backgroundColor = "transparent";
+  const contentRef = useRef(null);
 
   useEffect(() => {
-    let ctx = gsap.context(() => {
-      gsap.from(["#discover-hero", "#begin-journey-hero"], {
+    const ctx = gsap.context(() => {
+      gsap.from(".hero-reveal", {
         delay: 0.8,
         duration: 1,
         y: 20,
         opacity: 0,
-        stagger: 0.1,
+        stagger: 0.12,
         ease: "power2",
       });
-    });
+    }, contentRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section>
-      <VideoContainer>
-        <BackgroundVideo autoPlay playsInline muted loop id="myVideo">
-          <source src={video} type="video/mp4" />
-        </BackgroundVideo>
-        <BackgroundContainer style={{ backgroundColor: backgroundColor }}>
-          <MainContainer>
-            <Row></Row>
-            <Row>
-              <Col className="col-lg-7">
-                <HeaderContainer className="d-flex d-lg-none justify-content-center flex-column text-center">
-                  <div id="discover-hero">
-                    Discover <br />
-                    New Zealand
-                  </div>
-                  <div id="begin-journey-hero" style={{ fontSize: "2rem" }}>
-                    Begin Your Journey
-                  </div>
-                </HeaderContainer>
-                <HeaderContainer className="d-none d-lg-flex flex-column">
-                  <div id="discover-hero">Discover New Zealand</div>
-                  <div id="begin-journey-hero" style={{ fontSize: "2rem" }}>
-                    Begin Your Journey
-                  </div>
-                </HeaderContainer>
-              </Col>
-              <Col
-                id="discover-hero"
-                className="col-lg-5 d-none d-lg-flex justify-content-end mt-2 "
-              >
-                <DownArrow />
-              </Col>
-            </Row>
-          </MainContainer>
-        </BackgroundContainer>
-      </VideoContainer>
-      <BackgroundContainer />
-    </section>
+    <Hero aria-labelledby="hero-title">
+      <BackgroundVideo autoPlay playsInline muted loop aria-hidden="true">
+        <source src={video} type="video/mp4" />
+      </BackgroundVideo>
+      <Scrim />
+      <HeroContent ref={contentRef}>
+        <div>
+          <HeroTitle id="hero-title" className="hero-reveal">
+            Discover <em>New Zealand</em>
+          </HeroTitle>
+          <HeroSubtitle className="hero-reveal">Begin Your Journey</HeroSubtitle>
+        </div>
+        <div className="hero-reveal">
+          <DownArrow targetId="before-you-go" />
+        </div>
+      </HeroContent>
+    </Hero>
   );
 }
 

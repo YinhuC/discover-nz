@@ -1,23 +1,19 @@
 import React, { useContext } from "react";
-import { FaArrowDown } from "react-icons/fa";
-import { IconContext } from "react-icons";
+import { FiArrowDown } from "react-icons/fi";
 import { CursorContext } from "../../Cursor/Context/CursorContext";
 import { Main } from "./style";
 
-export const DownArrow = () => {
+export const DownArrow = ({ targetId }) => {
   const { setType } = useContext(CursorContext);
 
   return (
     <Main
+      href={`#${targetId}`}
+      aria-label="Scroll to the next section"
       onMouseEnter={() => setType("expand")}
       onMouseLeave={() => setType("default")}
-      smooth={true}
-      duration={600}
-      to="covid"
     >
-      <IconContext.Provider value={{ color: "white", size: "40px" }}>
-        <FaArrowDown />
-      </IconContext.Provider>
+      <FiArrowDown aria-hidden="true" />
     </Main>
   );
 };

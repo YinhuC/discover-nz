@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from "react";
 
 /* Components */
-import { LoaderContainer, LoaderTitle, LoaderSubtitle } from "./style";
+import { LoaderContainer, LoaderTitle, LoaderSubtitle, Separator } from "./style";
 import { CursorContext } from "../Cursor/Context/CursorContext";
 
 /* Functions */
@@ -12,30 +12,17 @@ function Loader() {
 
   useEffect(() => {
     setType("expand");
-    return function cleanup() {
-      setType("default");
-    };
-  });
+    return () => setType("default");
+  }, [setType]);
 
   return (
-    <>
-      <LoaderContainer className="d-none d-md-flex">
-        <LoaderTitle>Promote Tourism New Zealand</LoaderTitle>
-        <LoaderSubtitle>Travel . Explore . Experience</LoaderSubtitle>
-      </LoaderContainer>
-
-      <LoaderContainer className="d-flex d-md-none">
-        <LoaderTitle>Promote</LoaderTitle>
-        <LoaderTitle>Tourism</LoaderTitle>
-        <LoaderTitle>New Zealand</LoaderTitle>
-        <hr />
-        <LoaderSubtitle>Travel</LoaderSubtitle>
-        <LoaderSubtitle>-</LoaderSubtitle>
-        <LoaderSubtitle>Explore</LoaderSubtitle>
-        <LoaderSubtitle>-</LoaderSubtitle>
-        <LoaderSubtitle>Experience</LoaderSubtitle>
-      </LoaderContainer>
-    </>
+    <LoaderContainer role="status" aria-label="Loading Promote Tourism NZ">
+      <LoaderTitle>Promote Tourism New Zealand</LoaderTitle>
+      <LoaderSubtitle>
+        Travel<Separator aria-hidden="true" />Explore
+        <Separator aria-hidden="true" />Experience
+      </LoaderSubtitle>
+    </LoaderContainer>
   );
 }
 
