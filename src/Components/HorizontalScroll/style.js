@@ -23,5 +23,5 @@ export const StickyInnerContainer = styled.div`
   top: 0;
   height: 100vh;
   width: 100%;
-  overflow-x: hidden;
+  overflow: clip;
 `;
