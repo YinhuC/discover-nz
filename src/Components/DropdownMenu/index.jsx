@@ -29,7 +29,12 @@ const secondaryLinks = [
 function DropdownMenu({ isOpen, onNavigate }) {
   const { setType } = useContext(CursorContext);
   const [previewIndex, setPreviewIndex] = useState(0);
+  const [hasOpened, setHasOpened] = useState(false);
   const firstLinkRef = useRef(null);
+
+  if (isOpen && !hasOpened) {
+    setHasOpened(true);
+  }
 
   useEffect(() => {
     if (isOpen) {
@@ -82,14 +87,16 @@ function DropdownMenu({ isOpen, onNavigate }) {
           </SecondaryList>
         </div>
         <Preview aria-hidden="true">
-          {locations.map((location, i) => (
-            <PreviewImage
-              key={location.slug}
-              src={location.image}
-              alt=""
-              $isActive={i === previewIndex}
-            />
-          ))}
+          {hasOpened &&
+            locations.map((location, i) => (
+              <PreviewImage
+                key={location.slug}
+                src={location.image}
+                alt=""
+                loading="lazy"
+                $isActive={i === previewIndex}
+              />
+            ))}
         </Preview>
       </MenuInner>
     </Overlay>
