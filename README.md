@@ -45,6 +45,8 @@ The site deploys to Vercel as a static Vite build. `vercel.json` sets the output
 
 **2.** Every push to `master` then deploys to production, and other branches get preview deployments.
 
+**3.** Turn on Web Analytics in the project's Analytics tab. The `<Analytics />` component in `src/App.jsx` then records page views, including client-side route changes.
+
 To deploy from the terminal instead:
 
     npx vercel        # preview deployment

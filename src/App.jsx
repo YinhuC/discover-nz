@@ -1,6 +1,7 @@
 /* Third Party */
 import React from "react";
 import { BrowserRouter as Router } from "react-router";
+import { Analytics } from "@vercel/analytics/react";
 
 /* Components */
 import CursorManager from "./Components/Cursor/Context/manager";
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routing />
       </Router>
+      <Analytics />
     </CursorManager>
   );
 }
