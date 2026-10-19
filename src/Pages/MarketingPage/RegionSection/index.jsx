@@ -8,7 +8,7 @@ import ArrowLink from "../../../Components/ArrowLink";
 import { useCursorHover } from "../../../Components/Cursor/Context/CursorContext";
 import { islands, licenseUrls } from "./constants";
 import Lightbox from "./Lightbox";
-import { dropWords, gsap, revealImage, ScrollTrigger } from "../../../Utils/motion";
+import { dropWords, gsap, playOnEnter, revealImage, ScrollTrigger } from "../../../Utils/motion";
 import {
   RegionsContainer,
   Island,
@@ -70,7 +70,7 @@ function RegionItem({ region, thumbRef, onOpen }) {
         delay: 0.35,
         stagger: 0.06,
         ease: "expo.out",
-        scrollTrigger: { trigger: itemRef.current, start: "top 90%", toggleActions: "play none none none" },
+        ...playOnEnter(itemRef.current, "top 90%"),
       });
     }, itemRef);
     return () => ctx.revert();
@@ -133,11 +133,7 @@ function IslandRegions({ island }) {
         "--rule-scale": 0,
         duration: 1.4,
         ease: "expo.inOut",
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
+        ...playOnEnter(headerRef.current),
       });
     }, headerRef);
     return () => ctx.revert();

@@ -10,8 +10,12 @@ const EASE = "expo.out";
 const isReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const onEnter = (trigger, start = "top 85%") =>
+/** Tween vars that play once when `trigger` scrolls into view; none when there is no trigger. */
+export const playOnEnter = (trigger, start = "top 85%") =>
   trigger ? { scrollTrigger: { trigger, start, toggleActions: "play none none none" } } : {};
+
+const fadeIn = (targets, { delay = 0, stagger = 0, trigger } = {}) =>
+  gsap.from(targets, { opacity: 0, duration: 0.6, delay, stagger, ...playOnEnter(trigger) });
 
 /** Drops each character of a display heading in from above, one at a time. */
 export function dropChars(element, { delay = 0, trigger, stagger = 0.045 } = {}) {
@@ -22,14 +26,14 @@ export function dropChars(element, { delay = 0, trigger, stagger = 0.045 } = {})
     autoSplit: true,
     onSplit: (split) =>
       isReducedMotion()
-        ? gsap.from(split.chars, { opacity: 0, duration: 0.6, delay, stagger: 0.02, ...onEnter(trigger) })
+        ? fadeIn(split.chars, { delay, stagger: 0.02, trigger })
         : gsap.from(split.chars, {
             yPercent: -110,
             duration: 1.1,
             delay,
             stagger,
             ease: EASE,
-            ...onEnter(trigger),
+            ...playOnEnter(trigger),
           }),
   });
 }
@@ -43,7 +47,7 @@ export function dropWords(element, { delay = 0, trigger = element } = {}) {
     autoSplit: true,
     onSplit: (split) => {
       if (isReducedMotion()) {
-        return gsap.from(split.words, { opacity: 0, duration: 0.6, delay, stagger: 0.05, ...onEnter(trigger) });
+        return fadeIn(split.words, { delay, stagger: 0.05, trigger });
       }
       return gsap.from(split.words, {
         yPercent: -120,
@@ -53,7 +57,7 @@ export function dropWords(element, { delay = 0, trigger = element } = {}) {
         delay,
         stagger: 0.09,
         ease: EASE,
-        ...onEnter(trigger),
+        ...playOnEnter(trigger),
       });
     },
   });
@@ -68,14 +72,14 @@ export function riseLines(element, { delay = 0, trigger = element } = {}) {
     autoSplit: true,
     onSplit: (split) =>
       isReducedMotion()
-        ? gsap.from(split.lines, { opacity: 0, duration: 0.6, delay, ...onEnter(trigger) })
+        ? fadeIn(split.lines, { delay, trigger })
         : gsap.from(split.lines, {
             yPercent: 105,
             duration: 1,
             delay,
             stagger: 0.08,
             ease: EASE,
-            ...onEnter(trigger),
+            ...playOnEnter(trigger),
           }),
   });
 }
@@ -83,7 +87,7 @@ export function riseLines(element, { delay = 0, trigger = element } = {}) {
 /** Lifts a curtain off an image frame while the photo inside settles from a zoom. */
 export function revealImage(frame, image, { delay = 0, from = "bottom", trigger = frame } = {}) {
   if (isReducedMotion()) {
-    return gsap.from(frame, { opacity: 0, duration: 0.6, delay, ...onEnter(trigger) });
+    return fadeIn(frame, { delay, trigger });
   }
   const hidden = {
     bottom: "inset(100% 0% 0% 0%)",
@@ -93,7 +97,7 @@ export function revealImage(frame, image, { delay = 0, from = "bottom", trigger 
     throw new Error(`revealImage has no curtain direction "${from}"; use bottom or top.`);
   }
   return gsap
-    .timeline({ delay, ...onEnter(trigger, "top 90%") })
+    .timeline({ delay, ...playOnEnter(trigger, "top 90%") })
     .fromTo(
       frame,
       { clipPath: hidden },
@@ -105,7 +109,7 @@ export function revealImage(frame, image, { delay = 0, from = "bottom", trigger 
 /** Wipes list rows in from the left, one after another. */
 export function wipeRows(rows, { trigger } = {}) {
   if (isReducedMotion()) {
-    return gsap.from(rows, { opacity: 0, duration: 0.6, stagger: 0.08, ...onEnter(trigger) });
+    return fadeIn(rows, { stagger: 0.08, trigger });
   }
   return gsap.fromTo(
     rows,
@@ -117,7 +121,7 @@ export function wipeRows(rows, { trigger } = {}) {
       stagger: 0.12,
       ease: "expo.inOut",
       clearProps: "clipPath,transform",
-      ...onEnter(trigger),
+      ...playOnEnter(trigger),
     }
   );
 }

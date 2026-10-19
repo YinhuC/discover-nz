@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 /* Components */
 import { ContactContainer, ContactInner, ContactText, Dash, EmailInfo } from "./style";
 import { useCursorHover } from "../../../Components/Cursor/Context/CursorContext";
-import { dropWords, gsap, ScrollTrigger } from "../../../Utils/motion";
+import { dropWords, gsap, playOnEnter, ScrollTrigger } from "../../../Utils/motion";
 
 /* Functions */
 
@@ -37,14 +37,14 @@ function ContactSection() {
         duration: 1,
         delay: 0.45,
         ease: "expo.out",
-        scrollTrigger: { trigger: headerRef.current, start: "top 85%", toggleActions: "play none none none" },
+        ...playOnEnter(headerRef.current),
       });
       gsap.from(".contact-dash", {
         scaleX: 0,
         transformOrigin: (index) => (index === 0 ? "100% 50%" : "0% 50%"),
         duration: 1.4,
         ease: "expo.inOut",
-        scrollTrigger: { trigger: headerRef.current, start: "top 85%", toggleActions: "play none none none" },
+        ...playOnEnter(headerRef.current),
       });
     }, sectionRef);
     return () => ctx.revert();
