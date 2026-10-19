@@ -15,7 +15,7 @@ function Header() {
   const [isHidden, setIsHidden] = useState(false);
   const [isPastHero, setIsPastHero] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
   const { pathname, hash } = useLocation();
   const lastScrollRef = useRef(0);
   const menuButtonRef = useRef(null);

@@ -11,7 +11,7 @@ import { dropWords, gsap, ScrollTrigger } from "../../../Utils/motion";
 const SNAP_FROM = 0.3;
 
 function ContactSection() {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const emailRef = useRef(null);

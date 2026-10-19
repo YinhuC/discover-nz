@@ -27,7 +27,7 @@ const secondaryLinks = [
 ];
 
 function DropdownMenu({ isOpen, onNavigate }) {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
   const [previewIndex, setPreviewIndex] = useState(0);
   const [hasOpened, setHasOpened] = useState(false);
   const firstLinkRef = useRef(null);

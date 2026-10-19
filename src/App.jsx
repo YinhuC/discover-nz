@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/react";
 
 /* Components */
 import CursorManager from "./Components/Cursor/Context/manager";
-import { Cursor } from "./Components/Cursor";
 import { Routing } from "./routes";
 
 /* Functions */
@@ -13,7 +12,6 @@ import { Routing } from "./routes";
 function App() {
   return (
     <CursorManager>
-      <Cursor />
       <Router>
         <Routing />
       </Router>

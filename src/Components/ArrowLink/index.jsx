@@ -10,7 +10,7 @@ import { CursorContext } from "../Cursor/Context/CursorContext";
 
 /** Text link with a trailing arrow; `href` opens a new tab, `to` routes in-app. */
 function ArrowLink({ to, href, children, className }) {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
   const cursorProps = {
     onMouseEnter: () => setType("expand"),
     onMouseLeave: () => setType("default"),

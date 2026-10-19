@@ -1,8 +1,7 @@
 /* Third Party */
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 /* Components */
-import { CursorContext } from "./Context/CursorContext";
 import "./style.scss";
 
 /* Functions */
@@ -13,9 +12,7 @@ const isTouch = window.matchMedia("(pointer: coarse)").matches;
 const EASING = 0.1;
 
 /** Pointer-following cursor whose ring eases after the dot; animates only while the ring is catching up. */
-export const Cursor = () => {
-  const { type } = useContext(CursorContext);
-
+export const Cursor = ({ type }) => {
   const wrapperRef = useRef(null);
   const secondaryCursor = useRef(null);
   const mainCursor = useRef(null);

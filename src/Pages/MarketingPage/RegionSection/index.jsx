@@ -57,7 +57,7 @@ function Credit({ credit }) {
 }
 
 function RegionItem({ region, thumbRef, onOpen }) {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
   const itemRef = useRef(null);
 
   useEffect(() => {
@@ -119,7 +119,7 @@ function IslandRegions({ island }) {
   const [openIndex, setOpenIndex] = useState(null);
   const thumbs = useRef(new Map());
   const openerRef = useRef(null);
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
   const headerRef = useRef(null);
   const hasMountedRef = useRef(false);
   const gridId = `regions-${island.name.toLowerCase().replace(/\s+/g, "-")}`;

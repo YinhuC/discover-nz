@@ -8,7 +8,7 @@ import { CursorContext } from "../Cursor/Context/CursorContext";
 /* Functions */
 
 function Loader({ isLeaving }) {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
 
   useEffect(() => {
     setType("expand");

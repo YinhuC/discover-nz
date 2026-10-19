@@ -16,7 +16,7 @@ import { CursorContext } from "../Cursor/Context/CursorContext";
 /* Functions */
 
 function CustomCard({ image, header, credit, url }) {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
 
   return (
     <ImageContainer

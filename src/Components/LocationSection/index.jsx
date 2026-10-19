@@ -37,7 +37,7 @@ import {
 /* Functions */
 
 function LocationPage({ location, next, previous }) {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
   const pageRef = useRef(null);
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { Main } from "./style";
 import { isReducedMotion } from "../../../Utils/motion";
 
 export const DownArrow = ({ targetId }) => {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
 
   return (
     <Main

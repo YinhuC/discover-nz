@@ -7,7 +7,7 @@ import { CursorContext } from "../../Cursor/Context/CursorContext";
 /* Functions */
 
 export const MenuIcon = ({ color }) => {
-  const { setType } = useContext(CursorContext);
+  const setType = useContext(CursorContext);
 
   return (
     <div
