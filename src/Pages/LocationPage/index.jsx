@@ -23,9 +23,9 @@ import {
   NextName,
   PageLinks,
 } from "./style";
-import ArrowLink from "../ArrowLink";
-import { useCursorHover } from "../Cursor/Context/CursorContext";
-import { locationPath } from "../../Pages/LocationPages/constants";
+import ArrowLink from "../../Components/ArrowLink";
+import { useCursorHover } from "../../Components/Cursor/Context/CursorContext";
+import { locationPath } from "./constants";
 import {
   dropChars,
   gsap,

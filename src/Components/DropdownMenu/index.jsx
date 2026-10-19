@@ -15,7 +15,7 @@ import {
   MenuLabel,
 } from "./style";
 import { useCursorHover } from "../Cursor/Context/CursorContext";
-import { locationPath, locations } from "../../Pages/LocationPages/constants";
+import { locationPath, locations } from "../../Pages/LocationPage/constants";
 
 /* Functions */
 

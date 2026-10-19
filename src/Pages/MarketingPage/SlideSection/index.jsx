@@ -10,7 +10,7 @@ import {
   HorizontalSection,
   VerticalContainer,
 } from "./style";
-import { locationPath, locations } from "../../LocationPages/constants";
+import { locationPath, locations } from "../../LocationPage/constants";
 
 /* Functions */
 

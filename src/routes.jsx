@@ -8,8 +8,8 @@ import MarketingPage from "./Pages/MarketingPage";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import ErrorPage from "./Pages/ErrorPage";
-import LocationComponent from "./Components/LocationSection";
-import { locationPath, locations } from "./Pages/LocationPages/constants";
+import LocationPage from "./Pages/LocationPage";
+import { locationPath, locations } from "./Pages/LocationPage/constants";
 import Loader from "./Components/Loader";
 
 const MIN_LOADER_MS = 1800;
@@ -123,7 +123,7 @@ export function Routing() {
               key={location.slug}
               path={locationPath(location.slug)}
               element={
-                <LocationComponent
+                <LocationPage
                   location={location}
                   next={locations[(index + 1) % locations.length]}
                   previous={
