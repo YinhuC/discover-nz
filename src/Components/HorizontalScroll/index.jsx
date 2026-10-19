@@ -18,8 +18,8 @@ const calcDynamicHeight = (objectWidth) => {
 };
 
 const HorizontalScroll = ({ children }) => {
-  const [dynamicheight, setDynamicHeight] = useState(null);
-  const [translatex, setTranslateX] = useState(0);
+  const [dynamicHeight, setDynamicHeight] = useState(null);
+  const [translateX, setTranslateX] = useState(0);
 
   const outerRef = useRef(null);
   const containerRef = useRef(null);
@@ -47,10 +47,10 @@ const HorizontalScroll = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (dynamicheight !== null) {
+    if (dynamicHeight !== null) {
       ScrollTrigger.refresh();
     }
-  }, [dynamicheight]);
+  }, [dynamicHeight]);
 
   const scrollFocusedIntoView = (event) => {
     const outer = outerRef.current;
@@ -73,11 +73,11 @@ const HorizontalScroll = ({ children }) => {
   return (
     <TallOuterContainer
       ref={outerRef}
-      $dynamicheight={dynamicheight}
+      $dynamicHeight={dynamicHeight}
       onFocus={scrollFocusedIntoView}
     >
       <StickyInnerContainer ref={containerRef}>
-        <HorizontalTranslateContainer $translatex={translatex} ref={objectRef}>
+        <HorizontalTranslateContainer $translateX={translateX} ref={objectRef}>
           {children}
         </HorizontalTranslateContainer>
       </StickyInnerContainer>

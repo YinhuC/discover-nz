@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-export const TallOuterContainer = styled.div.attrs(({ $dynamicheight }) => ({
-  style: { height: `${$dynamicheight}px` },
+export const TallOuterContainer = styled.div.attrs(({ $dynamicHeight }) => ({
+  style: { height: `${$dynamicHeight}px` },
 }))`
   position: relative;
   width: 100%;
 `;
 
 export const HorizontalTranslateContainer = styled.div.attrs(
-  ({ $translatex }) => ({
-    style: { transform: `translateX(${$translatex}px)` },
+  ({ $translateX }) => ({
+    style: { transform: `translateX(${$translateX}px)` },
   })
 )`
   position: absolute;
