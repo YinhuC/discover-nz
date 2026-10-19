@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router";
+import { eyebrow } from "../../Utils/styles";
 
 export const MainContainer = styled.section`
   height: 100vh;
@@ -93,10 +94,8 @@ export const Intro = styled.p`
 export const HighlightsTitle = styled.h2`
   margin: 0 0 8px;
   font-family: var(--sans);
-  font-size: 0.875rem;
+  ${eyebrow}
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--muted);
 `;
 
@@ -161,10 +160,8 @@ export const NextLink = styled(Link)`
 `;
 
 export const NextLabel = styled.span`
-  font-size: 0.875rem;
+  ${eyebrow}
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 `;
 
 export const NextName = styled.span`

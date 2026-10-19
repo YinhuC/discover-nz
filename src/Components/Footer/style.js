@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { eyebrow } from "../../Utils/styles";
 
 export const FooterContainer = styled.footer`
   padding: clamp(96px, 14vh, 150px) clamp(16px, 5vw, 64px) 32px;
@@ -21,10 +22,8 @@ export const FooterGrid = styled.div`
 export const FooterHeading = styled.h2`
   margin: 0 0 24px;
   font-family: var(--sans);
-  font-size: 0.875rem;
+  ${eyebrow}
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
 `;
 

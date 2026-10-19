@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router";
+import { eyebrow } from "../../Utils/styles";
 
 export const Overlay = styled.nav`
   position: fixed;
@@ -39,9 +40,7 @@ export const MenuInner = styled.div`
 
 export const MenuLabel = styled.p`
   font-family: var(--sans);
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  ${eyebrow}
   color: rgba(255, 255, 255, 0.7);
   margin: 0 0 16px;
 `;
