@@ -6,6 +6,11 @@ export const HorizontalSection = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
+  display: ${({ $isDesktop }) => ($isDesktop ? "none" : "flex")};
+
+  @media (min-width: 768px) {
+    display: ${({ $isDesktop }) => ($isDesktop ? "flex" : "none")};
+  }
 `;
 
 export const CardsContainer = styled.div`
@@ -29,6 +34,7 @@ export const VerticalContainer = styled.div`
   }
 
   .vertical-cards-container {
+    flex-direction: column;
     padding: 0 16px;
   }
 `;

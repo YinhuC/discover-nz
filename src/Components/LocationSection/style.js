@@ -7,8 +7,13 @@ export const MainContainer = styled.section`
   min-height: 560px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   overflow: hidden;
   background-color: var(--ink);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 export const ImageFrame = styled.div`

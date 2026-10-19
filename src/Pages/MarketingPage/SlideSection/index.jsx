@@ -32,15 +32,15 @@ export default function SlideSection() {
       <SectionBand id="explore-title">
         Start Exploring <em>Wherever</em> You Want
       </SectionBand>
-      <HorizontalSection className="d-none d-md-flex">
+      <HorizontalSection $isDesktop>
         <HorizontalScroll>
           <CardsContainer>{cards}</CardsContainer>
         </HorizontalScroll>
       </HorizontalSection>
 
-      <HorizontalSection className="d-flex d-md-none">
+      <HorizontalSection>
         <VerticalContainer>
-          <CardsContainer className="vertical-cards-container flex-column">
+          <CardsContainer className="vertical-cards-container">
             {cards}
           </CardsContainer>
         </VerticalContainer>

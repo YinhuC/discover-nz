@@ -11,20 +11,96 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
   margin: 0;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   height: 100%;
   font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
   color: var(--ink);
   background-color: var(--paper);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: calc(1.375rem + 1.5vw);
+}
+
+h2 {
+  font-size: calc(1.325rem + 0.9vw);
+}
+
+h3 {
+  font-size: calc(1.3rem + 0.6vw);
+}
+
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+}
+
+p,
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+ul,
+ol {
+  padding-left: 2rem;
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+button {
+  margin: 0;
+  border-radius: 0;
+  font: inherit;
+  text-transform: none;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
 }
 
 body.menu-open,
@@ -66,6 +142,9 @@ a {
   position: absolute;
   width: 1px;
   height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
