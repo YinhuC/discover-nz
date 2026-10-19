@@ -26,10 +26,13 @@ const HorizontalScroll = ({ children }) => {
   const objectRef = useRef(null);
 
   useLayoutEffect(() => {
+    let measuredWidth = null;
     const resizeHandler = () => {
-      if (objectRef.current !== null) {
-        setDynamicHeight(calcDynamicHeight(objectRef.current.scrollWidth));
+      if (objectRef.current === null || window.innerWidth === measuredWidth) {
+        return;
       }
+      measuredWidth = window.innerWidth;
+      setDynamicHeight(calcDynamicHeight(objectRef.current.scrollWidth));
     };
     const calculateX = () => {
       if (containerRef.current !== null) {
