@@ -14,7 +14,7 @@ import { Main } from "./style";
 function MarketingPage() {
   return (
     <Main>
-      <title>Promote Tourism NZ · Discover New Zealand</title>
+      <title>Discover New Zealand</title>
       <HeaderSection />
       <BeforeYouGoSection />
       <SlideSection />

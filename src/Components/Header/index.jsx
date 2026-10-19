@@ -62,13 +62,13 @@ function Header() {
         onNavigate={() => setIsMenuOpen(false)}
       />
       <Bar $isHidden={isHidden && !isMenuOpen} $isSolid={isSolid}>
-        <BarInner id="promote-header">
+        <BarInner id="site-header">
           <TourismTextContainer
             onMouseEnter={() => setType("expand")}
             onMouseLeave={() => setType("default")}
             to="/"
           >
-            <TourismText style={{ color }}>Promote Tourism NZ</TourismText>
+            <TourismText style={{ color }}>Discover New Zealand</TourismText>
           </TourismTextContainer>
           <MenuButton
             ref={menuButtonRef}

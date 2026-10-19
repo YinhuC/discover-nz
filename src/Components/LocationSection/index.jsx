@@ -60,7 +60,7 @@ function LocationPage({ location, next, previous }) {
 
   return (
     <article aria-labelledby="location-title">
-      <title>{`${location.name} · Promote Tourism NZ`}</title>
+      <title>{`${location.name} · Discover New Zealand`}</title>
       <MainContainer ref={heroRef} className="flex-column flex-md-row">
         <ImageContainer
           className="location-image"

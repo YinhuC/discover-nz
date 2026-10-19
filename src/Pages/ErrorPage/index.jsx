@@ -10,7 +10,7 @@ import ArrowLink from "../../Components/ArrowLink";
 function ErrorPage() {
   return (
     <ErrorSection aria-labelledby="error-title">
-      <title>Page not found · Promote Tourism NZ</title>
+      <title>Page not found · Discover New Zealand</title>
       <ErrorTitle id="error-title">
         Page <em>not found</em>
       </ErrorTitle>

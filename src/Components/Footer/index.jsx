@@ -54,7 +54,7 @@ function Footer() {
         <div>
           <FooterHeading>About this site</FooterHeading>
           <FooterText>
-            Promote Tourism NZ is a personal, non-commercial project designed to
+            Discover New Zealand is a personal, non-commercial project designed to
             encourage New Zealanders, and everyone else, to travel within New
             Zealand.
           </FooterText>
@@ -71,7 +71,7 @@ function Footer() {
       </FooterGrid>
       <FooterBottom>
         <Copyright>
-          © 2020–{currentYear} Promote Tourism NZ. Developed by SNYC.
+          © 2020–{currentYear} Discover New Zealand. Developed by SNYC.
         </Copyright>
       </FooterBottom>
     </FooterContainer>

@@ -53,7 +53,7 @@ export function Routing() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from("#promote-header", {
+      gsap.from("#site-header", {
         delay: 0.5,
         duration: 1,
         y: 20,

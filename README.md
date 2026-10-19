@@ -1,6 +1,6 @@
-# Tourism NZ
+# Discover New Zealand
 
-Welcome to the Promote Tourism NZ! This application shows the beauty of New Zealand using new technologies to create a website similar to those seen on the awwwards.com with smooth transitions and animations.
+Discover New Zealand shows the beauty of New Zealand using new technologies to create a website similar to those seen on the awwwards.com with smooth transitions and animations.
 
 Check the applicaton out here: https://tourism-nz.onrender.com/
 
@@ -16,7 +16,7 @@ Before getting started, make sure you have the following software installed on y
 
 ---
 
-To run Tourism NZ locally, follow these steps:
+To run Discover New Zealand locally, follow these steps:
 
 **1.** Clone the repository:
 

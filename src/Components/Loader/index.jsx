@@ -16,8 +16,8 @@ function Loader() {
   }, [setType]);
 
   return (
-    <LoaderContainer role="status" aria-label="Loading Promote Tourism NZ">
-      <LoaderTitle>Promote Tourism New Zealand</LoaderTitle>
+    <LoaderContainer role="status" aria-label="Loading Discover New Zealand">
+      <LoaderTitle>Discover New Zealand</LoaderTitle>
       <LoaderSubtitle>
         Travel<Separator aria-hidden="true" />Explore
         <Separator aria-hidden="true" />Experience
