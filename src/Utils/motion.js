@@ -88,10 +88,9 @@ export function revealImage(frame, image, { delay = 0, from = "bottom", trigger 
   const hidden = {
     bottom: "inset(100% 0% 0% 0%)",
     top: "inset(0% 0% 100% 0%)",
-    right: "inset(0% 0% 0% 100%)",
   }[from];
   if (hidden === undefined) {
-    throw new Error(`revealImage has no curtain direction "${from}"; use bottom, top or right.`);
+    throw new Error(`revealImage has no curtain direction "${from}"; use bottom or top.`);
   }
   return gsap
     .timeline({ delay, ...onEnter(trigger, "top 90%") })

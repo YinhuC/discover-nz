@@ -26,7 +26,7 @@ function CustomCard({ image, header, credit, url }) {
       onClick={() => setType("default")}
       to={url}
     >
-      <CardImage className="card-image" style={{ backgroundImage: `url(${image})` }} />
+      <CardImage style={{ backgroundImage: `url(${image})` }} />
       <Overlay>
         <div>
           <Header>{header}</Header>
