@@ -44,7 +44,7 @@ function Footer() {
               </li>
             ))}
             <li>
-              <FooterLink href="mailto:yinhucui@gmail.com">Contact</FooterLink>
+              <FooterLink href="mailto:yinhucui@hotmail.com">Contact</FooterLink>
             </li>
           </FooterList>
         </nav>

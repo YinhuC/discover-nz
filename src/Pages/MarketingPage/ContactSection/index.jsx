@@ -63,11 +63,11 @@ function ContactSection() {
         </ContactText>
         <EmailInfo
           ref={emailRef}
-          href="mailto:yinhucui@gmail.com"
+          href="mailto:yinhucui@hotmail.com"
           onMouseEnter={() => setType("expand")}
           onMouseLeave={() => setType("default")}
         >
-          yinhucui@gmail.com
+          yinhucui@hotmail.com
         </EmailInfo>
       </ContactInner>
       <Dash className="contact-dash" aria-hidden="true" />
