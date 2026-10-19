@@ -14,8 +14,6 @@ import { locationPath, locations } from "../../LocationPages/constants";
 
 /* Functions */
 
-/*https://sudo.isl.co/translate-vertical-horizontal/*/
-
 const cards = locations.map((location) => (
   <CustomCard
     key={location.slug}

@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-/*https://sudo.isl.co/translate-vertical-horizontal/*/
-
 export const HorizontalSection = styled.div`
   position: relative;
   width: 100%;

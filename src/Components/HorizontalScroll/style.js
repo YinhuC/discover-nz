@@ -1,5 +1,4 @@
 import styled from "styled-components";
-/*https://sudo.isl.co/translate-vertical-horizontal/*/
 
 export const TallOuterContainer = styled.div.attrs(({ $dynamicheight }) => ({
   style: { height: `${$dynamicheight}px` },
