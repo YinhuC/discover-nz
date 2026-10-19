@@ -10,22 +10,27 @@ Check the applicaton out here: https://tourism-nz.onrender.com/
 
 Before getting started, make sure you have the following software installed on your machine:
 
-- Node.js (v14 or later)
+- Node.js 24 LTS (the exact version is in `.nvmrc`; run `nvm use` to switch to it)
 
 # Getting Started
 
 ---
 
-To run the Agile Task App locally, follow these steps:
+To run Tourism NZ locally, follow these steps:
 
 **1.** Clone the repository:
 
-    git clone https://github.com/your-username/agile-tasker.git
+    git clone https://github.com/YinhuC/tourism-nz.git
 
-**2.** Install dependencies for both the client and server:
+**2.** Install dependencies:
 
     npm install
 
-**3.** Start the application:
+**3.** Start the Vite dev server, then open http://localhost:5173:
 
     npm start
+
+**4.** Build for production into `build/`, and preview the build locally:
+
+    npm run build
+    npm run preview
