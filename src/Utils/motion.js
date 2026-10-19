@@ -3,6 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
+document.fonts.ready.then(() => ScrollTrigger.refresh());
 
 const EASE = "expo.out";
 

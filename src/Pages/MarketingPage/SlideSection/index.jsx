@@ -17,6 +17,8 @@ import { gsap, revealImage } from "../../../Utils/motion";
 
 /*https://sudo.isl.co/translate-vertical-horizontal/*/
 
+const CARD_ENTRY = 0.85;
+
 const cards = locations.map((location) => (
   <CustomCard
     key={location.slug}
@@ -34,13 +36,31 @@ export default function SlideSection() {
   useEffect(() => {
     const mm = gsap.matchMedia();
     mm.add("(min-width: 768px)", () => {
-      gsap.utils.toArray(".image-container", rowRef.current).forEach((card, index) => {
-        revealImage(card, card.querySelector(".card-image"), {
+      let pending = gsap.utils.toArray(".image-container", rowRef.current).map((card) => ({
+        card,
+        reveal: revealImage(card, card.querySelector(".card-image"), {
           from: "right",
-          delay: index * 0.14,
-          trigger: rowRef.current,
+          trigger: null,
+        }).pause(0),
+      }));
+      const revealArrived = () => {
+        pending = pending.filter(({ card, reveal }) => {
+          const { left, top } = card.getBoundingClientRect();
+          const hasArrived =
+            left < window.innerWidth * CARD_ENTRY && top < window.innerHeight * CARD_ENTRY;
+          if (hasArrived) {
+            reveal.play();
+          }
+          return !hasArrived;
         });
-      });
+        if (pending.length === 0) {
+          window.removeEventListener("scroll", onScroll);
+        }
+      };
+      const onScroll = () => requestAnimationFrame(revealArrived);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      revealArrived();
+      return () => window.removeEventListener("scroll", onScroll);
     });
     mm.add("(max-width: 767px)", () => {
       gsap.utils.toArray(".image-container", columnRef.current).forEach((card) => {

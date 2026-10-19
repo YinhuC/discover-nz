@@ -4,9 +4,11 @@ import React, { useContext, useEffect, useRef } from "react";
 /* Components */
 import { ContactContainer, ContactInner, ContactText, Dash, EmailInfo } from "./style";
 import { CursorContext } from "../../../Components/Cursor/Context/CursorContext";
-import { dropWords, gsap } from "../../../Utils/motion";
+import { dropWords, gsap, ScrollTrigger } from "../../../Utils/motion";
 
 /* Functions */
+
+const SNAP_FROM = 0.3;
 
 function ContactSection() {
   const { setType } = useContext(CursorContext);
@@ -16,6 +18,18 @@ function ContactSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "top top",
+        snap: {
+          snapTo: (progress, self) =>
+            self.direction > 0 && progress > SNAP_FROM ? 1 : progress,
+          delay: 0.08,
+          duration: { min: 0.4, max: 0.9 },
+          ease: "power3.inOut",
+        },
+      });
       dropWords(headerRef.current);
       gsap.from(emailRef.current, {
         y: 32,
