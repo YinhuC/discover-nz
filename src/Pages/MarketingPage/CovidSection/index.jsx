@@ -2,8 +2,8 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col, Container, Button, Alert } from "reactstrap";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
-import SplitText from "../../../Utils/Split3.min.js";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 
 /* Components */
 import { CovidContainer, DisclaimerText, CovidHeader } from "./style";
@@ -13,14 +13,14 @@ import { CovidContainer, DisclaimerText, CovidHeader } from "./style";
 the cursor to be a direct child of cursor manager */
 
 function CovidSection() {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, SplitText);
   const alertRef = useRef(null);
 
   useEffect(() => {
-    const split = new SplitText("#disclaimer", {
-      type: "lines",
-    });
     let ctx = gsap.context(() => {
+      const split = new SplitText("#disclaimer", {
+        type: "lines",
+      });
       gsap.from(["#covid-title", split.lines, "#covid-button"], {
         delay: 0.3,
         duration: 1,

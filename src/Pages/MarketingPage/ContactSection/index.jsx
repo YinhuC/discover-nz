@@ -1,8 +1,8 @@
 /* Third Party */
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
-import SplitText from '../../../Utils/Split3.min.js';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 
 /* Components */
 import { ContactContainer, ContactText, Dash, EmailInfo } from './style';
@@ -10,17 +10,16 @@ import { ContactContainer, ContactText, Dash, EmailInfo } from './style';
 /* Functions */
 
 function ContactSection() {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, SplitText);
 
   const headerRef = useRef(null);
   const emailRef = useRef(null);
 
   useEffect(() => {
-    const split = new SplitText('#creator', {
-      type: 'lines',
-    });
-
     let ctx = gsap.context(() => {
+      const split = new SplitText('#creator', {
+        type: 'lines',
+      });
       gsap.from([split.lines, emailRef.current], {
         duration: 1,
         y: 20,

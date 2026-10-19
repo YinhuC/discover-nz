@@ -1,7 +1,7 @@
 /* Third Party */
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /* Components */
 import HorizontalScroll from "../../../Components/HorizontalScroll";

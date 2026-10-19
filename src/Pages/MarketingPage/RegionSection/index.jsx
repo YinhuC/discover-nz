@@ -4,7 +4,7 @@ import { Col, Row } from "reactstrap";
 import Teaser from "../../../Components/Teaser";
 import { location, info, imageLinks, links, footer, header } from "./constants";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /* Components */
 import { TeaserContainer, BumperSection, BumperText } from "./style";
