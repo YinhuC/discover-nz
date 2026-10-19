@@ -121,6 +121,7 @@ function IslandRegions({ island }) {
   const openerRef = useRef(null);
   const { setType } = useContext(CursorContext);
   const headerRef = useRef(null);
+  const hasMountedRef = useRef(false);
   const gridId = `regions-${island.name.toLowerCase().replace(/\s+/g, "-")}`;
   const visible = isExpanded
     ? island.regions
@@ -144,6 +145,10 @@ function IslandRegions({ island }) {
   }, []);
 
   useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
     ScrollTrigger.refresh();
   }, [isExpanded]);
 
