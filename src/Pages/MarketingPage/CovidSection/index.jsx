@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Row, Col, Container, Button, Alert } from "reactstrap";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -14,6 +14,7 @@ the cursor to be a direct child of cursor manager */
 
 function CovidSection() {
   gsap.registerPlugin(ScrollTrigger);
+  const alertRef = useRef(null);
 
   useEffect(() => {
     const split = new SplitText("#disclaimer", {
@@ -46,6 +47,7 @@ function CovidSection() {
             </CovidHeader>
             <Alert
               color="warning"
+              innerRef={alertRef}
               style={{ color: "black", fontWeight: "bold", marginTop: "30px" }}
             >
               Alert - Warning

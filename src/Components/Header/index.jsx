@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Row, Col, Container, Fade } from "reactstrap";
 
 /* Components */
@@ -17,6 +17,7 @@ function Header() {
   const [color, setColor] = useState("white");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { setType } = useContext(CursorContext);
+  const fadeRef = useRef(null);
 
   useEffect(() => {
     document.addEventListener("scroll", handleScroll);
@@ -51,7 +52,7 @@ function Header() {
   return (
     <section>
       <DropdownMenu menuHeight={isMenuOpen ? "50" : "0"} />
-      <Fade in={scrollUp}>
+      <Fade in={scrollUp} innerRef={fadeRef}>
         <Center>
           <Container id="promote-header">
             <Row className="d-flex justify-content-center mt-5">

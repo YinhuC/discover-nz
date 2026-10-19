@@ -1,6 +1,6 @@
 /* Third Party */
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router";
 
 /* Components */
 import CursorManager from "./Components/Cursor/Context/manager";

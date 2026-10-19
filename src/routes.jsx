@@ -1,6 +1,6 @@
 /* Third Party */
 import React, { useEffect, useState } from "react";
-import { Route, Routes, Outlet } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router";
 import { gsap } from "gsap";
 
 /* Components */

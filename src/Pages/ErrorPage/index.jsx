@@ -1,6 +1,6 @@
 /* Third Party */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Container, Row, Col, Button } from "reactstrap";
 
 /* Components */
