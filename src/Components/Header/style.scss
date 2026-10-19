@@ -1,13 +1,15 @@
+.Menu-toggle-closed span,
+.Menu-toggle-open span {
+  width: 36px;
+  height: 0.25rem;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
 .Menu-toggle-closed {
   span {
-    width: 36px;
-    height: 0.25rem;
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
-    background: black;
-
     &:first-child {
       transform: rotate(0);
     }
@@ -25,20 +27,12 @@
 
 .Menu-toggle-open {
   span {
-    width: 36px;
-    height: 0.25rem;
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
-    background: black;
     &:first-child {
       transform: rotate(45deg);
     }
 
     &:nth-child(2) {
       opacity: 0;
-      background: transparent;
     }
 
     &:nth-child(3) {
