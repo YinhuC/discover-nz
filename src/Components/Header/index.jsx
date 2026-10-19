@@ -74,6 +74,7 @@ function Header() {
             aria-expanded={isMenuOpen}
             aria-controls="site-menu"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            {...cursorProps}
           >
             <MenuIcon color={color} />
           </MenuButton>
