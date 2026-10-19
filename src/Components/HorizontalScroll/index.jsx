@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { ScrollTrigger } from "../../Utils/motion";
 import {
   StickyInnerContainer,
   HorizontalTranslateContainer,
@@ -24,7 +25,7 @@ const HorizontalScroll = ({ children }) => {
   const containerRef = useRef(null);
   const objectRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const resizeHandler = () => {
       if (objectRef.current !== null) {
         setDynamicHeight(calcDynamicHeight(objectRef.current.scrollWidth));
@@ -44,6 +45,12 @@ const HorizontalScroll = ({ children }) => {
       window.removeEventListener("scroll", calculateX);
     };
   }, []);
+
+  useEffect(() => {
+    if (dynamicheight !== null) {
+      ScrollTrigger.refresh();
+    }
+  }, [dynamicheight]);
 
   const scrollFocusedIntoView = (event) => {
     const outer = outerRef.current;

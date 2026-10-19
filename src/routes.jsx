@@ -1,6 +1,6 @@
 /* Third Party */
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router";
+import React, { useEffect, useRef, useState } from "react";
+import { Route, Routes, useLocation, useNavigationType } from "react-router";
 import { gsap, isReducedMotion } from "./Utils/motion";
 
 /* Components */
@@ -15,24 +15,48 @@ import Loader from "./Components/Loader";
 const MIN_LOADER_MS = 1800;
 const LOADER_EXIT_MS = 1100;
 
+const scrollPositions = new Map();
+
+/** Restores the saved position on back/forward, else jumps to the hash target or the top, once layout settles. */
 function useScrollOnNavigate(isReady) {
-  const { pathname, hash } = useLocation();
+  const { key, pathname, hash } = useLocation();
+  const navigationType = useNavigationType();
+  const previousPathRef = useRef(null);
+
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+  }, []);
+
+  useEffect(() => {
+    const remember = () => scrollPositions.set(key, window.scrollY);
+    window.addEventListener("scroll", remember, { passive: true });
+    return () => window.removeEventListener("scroll", remember);
+  }, [key]);
 
   useEffect(() => {
     if (!isReady) {
       return;
     }
-    if (!hash) {
-      window.scrollTo({ top: 0, behavior: "instant" });
-      return;
-    }
+    const isSamePage = previousPathRef.current === pathname;
+    previousPathRef.current = pathname;
+
     const frame = requestAnimationFrame(() => {
-      document.getElementById(hash.slice(1))?.scrollIntoView({
-        behavior: isReducedMotion() ? "auto" : "smooth",
+      const saved = scrollPositions.get(key);
+      if (navigationType === "POP" && saved !== undefined) {
+        window.scrollTo({ top: saved, behavior: "instant" });
+        return;
+      }
+      const target = hash && document.getElementById(hash.slice(1));
+      if (!target) {
+        window.scrollTo({ top: 0, behavior: "instant" });
+        return;
+      }
+      target.scrollIntoView({
+        behavior: isSamePage && !isReducedMotion() ? "smooth" : "instant",
       });
     });
     return () => cancelAnimationFrame(frame);
-  }, [pathname, hash, isReady]);
+  }, [key, pathname, hash, navigationType, isReady]);
 }
 
 export function Routing() {
