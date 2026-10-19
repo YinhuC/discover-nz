@@ -1,11 +1,11 @@
 /* Third Party */
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FiMaximize2 } from "react-icons/fi";
 
 /* Components */
 import SectionBand from "../../../Components/SectionBand";
 import ArrowLink from "../../../Components/ArrowLink";
-import { CursorContext } from "../../../Components/Cursor/Context/CursorContext";
+import { useCursorHover } from "../../../Components/Cursor/Context/CursorContext";
 import { islands, licenseUrls } from "./constants";
 import Lightbox from "./Lightbox";
 import { dropWords, gsap, revealImage, ScrollTrigger } from "../../../Utils/motion";
@@ -57,7 +57,7 @@ function Credit({ credit }) {
 }
 
 function RegionItem({ region, thumbRef, onOpen }) {
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
   const itemRef = useRef(null);
 
   useEffect(() => {
@@ -82,8 +82,7 @@ function RegionItem({ region, thumbRef, onOpen }) {
         <ZoomButton
           type="button"
           onClick={onOpen}
-          onMouseEnter={() => setType("expand")}
-          onMouseLeave={() => setType("default")}
+          {...cursorProps}
           aria-label={`Enlarge photo of ${region.name}`}
           aria-haspopup="dialog"
         >
@@ -119,7 +118,7 @@ function IslandRegions({ island }) {
   const [openIndex, setOpenIndex] = useState(null);
   const thumbs = useRef(new Map());
   const openerRef = useRef(null);
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
   const headerRef = useRef(null);
   const hasMountedRef = useRef(false);
   const gridId = `regions-${island.name.toLowerCase().replace(/\s+/g, "-")}`;
@@ -196,8 +195,7 @@ function IslandRegions({ island }) {
           aria-expanded={isExpanded}
           aria-controls={gridId}
           onClick={() => setIsExpanded(!isExpanded)}
-          onMouseEnter={() => setType("expand")}
-          onMouseLeave={() => setType("default")}
+          {...cursorProps}
         >
           {isExpanded
             ? `Show fewer ${island.name} regions`

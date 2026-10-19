@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useContext } from "react";
+import React from "react";
 import { FiArrowRight } from "react-icons/fi";
 
 /* Components */
@@ -11,19 +11,18 @@ import {
   Credit,
   Explore,
 } from "./style";
-import { CursorContext } from "../Cursor/Context/CursorContext";
+import { useCursorHover } from "../Cursor/Context/CursorContext";
 
 /* Functions */
 
 function CustomCard({ image, header, credit, url }) {
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
 
   return (
     <ImageContainer
       className="image-container"
-      onMouseEnter={() => setType("expand")}
-      onMouseLeave={() => setType("default")}
-      onClick={() => setType("default")}
+      {...cursorProps}
+      onClick={cursorProps.onMouseLeave}
       to={url}
     >
       <CardImage style={{ backgroundImage: `url(${image})` }} />

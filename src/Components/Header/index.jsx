@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 
 /* Components */
@@ -7,7 +7,7 @@ import { Bar, BarInner, TourismTextContainer, MenuButton, TourismText } from "./
 import { MenuIcon } from "../Icons/Menu";
 import DropdownMenu from "../DropdownMenu";
 import "./style.scss";
-import { CursorContext } from "../Cursor/Context/CursorContext";
+import { useCursorHover } from "../Cursor/Context/CursorContext";
 
 /* Functions */
 
@@ -15,7 +15,7 @@ function Header() {
   const [isHidden, setIsHidden] = useState(false);
   const [isPastHero, setIsPastHero] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
   const { pathname, hash } = useLocation();
   const lastScrollRef = useRef(0);
   const menuButtonRef = useRef(null);
@@ -63,11 +63,7 @@ function Header() {
       />
       <Bar $isHidden={isHidden && !isMenuOpen} $isSolid={isSolid}>
         <BarInner id="site-header">
-          <TourismTextContainer
-            onMouseEnter={() => setType("expand")}
-            onMouseLeave={() => setType("default")}
-            to="/"
-          >
+          <TourismTextContainer {...cursorProps} to="/">
             <TourismText style={{ color }}>Discover New Zealand</TourismText>
           </TourismTextContainer>
           <MenuButton

@@ -1,20 +1,16 @@
 /* Third Party */
-import React, { useContext } from "react";
+import React from "react";
 import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 
 /* Components */
 import { ExternalAnchor, InternalAnchor } from "./style";
-import { CursorContext } from "../Cursor/Context/CursorContext";
+import { useCursorHover } from "../Cursor/Context/CursorContext";
 
 /* Functions */
 
 /** Text link with a trailing arrow; `href` opens a new tab, `to` routes in-app. */
 function ArrowLink({ to, href, children, className }) {
-  const setType = useContext(CursorContext);
-  const cursorProps = {
-    onMouseEnter: () => setType("expand"),
-    onMouseLeave: () => setType("default"),
-  };
+  const cursorProps = useCursorHover();
 
   if (href) {
     return (

@@ -1,9 +1,9 @@
 /* Third Party */
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 /* Components */
 import { ContactContainer, ContactInner, ContactText, Dash, EmailInfo } from "./style";
-import { CursorContext } from "../../../Components/Cursor/Context/CursorContext";
+import { useCursorHover } from "../../../Components/Cursor/Context/CursorContext";
 import { dropWords, gsap, ScrollTrigger } from "../../../Utils/motion";
 
 /* Functions */
@@ -11,7 +11,7 @@ import { dropWords, gsap, ScrollTrigger } from "../../../Utils/motion";
 const SNAP_FROM = 0.3;
 
 function ContactSection() {
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const emailRef = useRef(null);
@@ -64,8 +64,7 @@ function ContactSection() {
         <EmailInfo
           ref={emailRef}
           href="mailto:yinhucui@hotmail.com"
-          onMouseEnter={() => setType("expand")}
-          onMouseLeave={() => setType("default")}
+          {...cursorProps}
         >
           yinhucui@hotmail.com
         </EmailInfo>

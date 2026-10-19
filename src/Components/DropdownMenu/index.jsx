@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
 /* Components */
@@ -14,7 +14,7 @@ import {
   SecondaryLink,
   MenuLabel,
 } from "./style";
-import { CursorContext } from "../Cursor/Context/CursorContext";
+import { useCursorHover } from "../Cursor/Context/CursorContext";
 import { locations } from "../../Pages/LocationPages/constants";
 
 /* Functions */
@@ -27,7 +27,7 @@ const secondaryLinks = [
 ];
 
 function DropdownMenu({ isOpen, onNavigate }) {
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
   const [previewIndex, setPreviewIndex] = useState(0);
   const [hasOpened, setHasOpened] = useState(false);
   const firstLinkRef = useRef(null);
@@ -41,11 +41,6 @@ function DropdownMenu({ isOpen, onNavigate }) {
       firstLinkRef.current?.focus({ preventScroll: true });
     }
   }, [isOpen]);
-
-  const cursorProps = {
-    onMouseEnter: () => setType("expand"),
-    onMouseLeave: () => setType("default"),
-  };
 
   return (
     <Overlay id="site-menu" aria-label="Main" $isOpen={isOpen} inert={!isOpen}>
@@ -62,9 +57,9 @@ function DropdownMenu({ isOpen, onNavigate }) {
                   onFocus={() => setPreviewIndex(i)}
                   onMouseEnter={() => {
                     setPreviewIndex(i);
-                    setType("expand");
+                    cursorProps.onMouseEnter();
                   }}
-                  onMouseLeave={() => setType("default")}
+                  onMouseLeave={cursorProps.onMouseLeave}
                 >
                   {location.name}
                 </DestinationLink>

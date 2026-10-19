@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FiArrowDown } from "react-icons/fi";
-import { CursorContext } from "../../Cursor/Context/CursorContext";
+import { useCursorHover } from "../../Cursor/Context/CursorContext";
 import { Main } from "./style";
 import { isReducedMotion } from "../../../Utils/motion";
 
 export const DownArrow = ({ targetId }) => {
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
 
   return (
     <Main
@@ -17,8 +17,7 @@ export const DownArrow = ({ targetId }) => {
           behavior: isReducedMotion() ? "auto" : "smooth",
         });
       }}
-      onMouseEnter={() => setType("expand")}
-      onMouseLeave={() => setType("default")}
+      {...cursorProps}
     >
       <FiArrowDown aria-hidden="true" />
     </Main>

@@ -1,5 +1,5 @@
 /* Third Party */
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
 /* Components */
@@ -24,7 +24,7 @@ import {
   PageLinks,
 } from "./style";
 import ArrowLink from "../ArrowLink";
-import { CursorContext } from "../Cursor/Context/CursorContext";
+import { useCursorHover } from "../Cursor/Context/CursorContext";
 import {
   dropChars,
   gsap,
@@ -37,7 +37,7 @@ import {
 /* Functions */
 
 function LocationPage({ location, next, previous }) {
-  const setType = useContext(CursorContext);
+  const cursorProps = useCursorHover();
   const pageRef = useRef(null);
 
   useEffect(() => {
@@ -135,8 +135,7 @@ function LocationPage({ location, next, previous }) {
         className="next-link"
         to={`/location/${next.slug}`}
         style={{ backgroundColor: next.colour }}
-        onMouseEnter={() => setType("expand")}
-        onMouseLeave={() => setType("default")}
+        {...cursorProps}
       >
         <NextImage
           className="next-image"
