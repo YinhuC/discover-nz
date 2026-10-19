@@ -1,31 +1,11 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from "styled-components";
 
 /*https://sudo.isl.co/translate-vertical-horizontal/*/
 
-export const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    font-family: sans-serif;
-  }
-`;
-
-export const Main = styled.div``;
-
-export const HorizontalSection = styled.section`
+export const HorizontalSection = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
-`;
-
-export const BumperSection = styled.section`
-  text-align: center;
-  padding: 128px 16px;
-  background-color: rgb(171, 213, 255);
-  user-select: none;
 `;
 
 export const CardsContainer = styled.div`
@@ -40,19 +20,15 @@ export const CardsContainer = styled.div`
 
 export const VerticalContainer = styled.div`
   width: 100%;
+  padding: 24px 0 48px;
+
   .image-container {
     width: 100%;
-    height: 400px;
-    margin: 30px 10px 30px 10px;
+    height: 420px;
+    margin: 16px 0;
   }
-  .vertical-cards-container {
-    padding: 0 5% 0 5%;
-  }
-`;
 
-export const BumperText = styled.div`
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5rem;
-  font-weight: 400;
-  color: black;
+  .vertical-cards-container {
+    padding: 0 16px;
+  }
 `;

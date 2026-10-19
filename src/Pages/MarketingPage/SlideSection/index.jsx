@@ -1,86 +1,50 @@
 /* Third Party */
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
 
 /* Components */
 import HorizontalScroll from "../../../Components/HorizontalScroll";
-import {
-  BumperSection,
-  CardsContainer,
-  GlobalStyle,
-  HorizontalSection,
-  Main,
-  VerticalContainer,
-  BumperText,
-} from "./style";
+import SectionBand from "../../../Components/SectionBand";
 import CustomCard from "../../../Components/Card";
-import { location, info, arrayImages } from "../../LocationPages/constants";
+import {
+  CardsContainer,
+  HorizontalSection,
+  VerticalContainer,
+} from "./style";
+import { locations } from "../../LocationPages/constants";
 
 /* Functions */
 
 /*https://sudo.isl.co/translate-vertical-horizontal/*/
 
+const cards = locations.map((location) => (
+  <CustomCard
+    key={location.slug}
+    image={location.image}
+    header={location.name}
+    credit={location.credit}
+    url={`/location/${location.slug}`}
+  />
+));
+
 export default function SlideSection() {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const topSlideBumper = useRef(null);
-
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      gsap.from(topSlideBumper.current, {
-        delay: 0.5,
-        duration: 1,
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        ease: "power2",
-
-        scrollTrigger: {
-          trigger: topSlideBumper.current,
-        },
-      });
-    });
-    return () => ctx.revert();
-  });
-
-  const Cards = React.memo(() =>
-    arrayImages.map((currentImage, i) => (
-      <CustomCard
-        image={currentImage}
-        header={location[i]}
-        subheader={info[i]}
-        key={`card-${i}`}
-        url={"/location/" + location[i].replace(/\s+/g, "-").toLowerCase()}
-      />
-    ))
-  );
-
   return (
-    <section>
-      <GlobalStyle />
-      <Main>
-        <BumperSection>
-          <BumperText ref={topSlideBumper}>
-            Start Exploring Wherever You Want
-          </BumperText>
-        </BumperSection>
-        <HorizontalSection className="d-none d-md-flex">
-          <HorizontalScroll>
-            <CardsContainer>
-              <Cards />
-            </CardsContainer>
-          </HorizontalScroll>
-        </HorizontalSection>
+    <section id="explore" aria-labelledby="explore-title">
+      <SectionBand id="explore-title">
+        Start Exploring <em>Wherever</em> You Want
+      </SectionBand>
+      <HorizontalSection className="d-none d-md-flex">
+        <HorizontalScroll>
+          <CardsContainer>{cards}</CardsContainer>
+        </HorizontalScroll>
+      </HorizontalSection>
 
-        <HorizontalSection className="d-flex d-md-none">
-          <VerticalContainer>
-            <CardsContainer className="vertical-cards-container flex-column">
-              <Cards />
-            </CardsContainer>
-          </VerticalContainer>
-        </HorizontalSection>
-      </Main>
+      <HorizontalSection className="d-flex d-md-none">
+        <VerticalContainer>
+          <CardsContainer className="vertical-cards-container flex-column">
+            {cards}
+          </CardsContainer>
+        </VerticalContainer>
+      </HorizontalSection>
     </section>
   );
 }

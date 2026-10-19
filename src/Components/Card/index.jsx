@@ -1,21 +1,21 @@
 /* Third Party */
 import React, { useContext } from "react";
-import { Col, Row } from "reactstrap";
+import { FiArrowRight } from "react-icons/fi";
 
 /* Components */
 import {
   CardImage,
   ImageContainer,
   Overlay,
-  TopContainer,
   Header,
-  Subheader,
+  Credit,
+  Explore,
 } from "./style";
 import { CursorContext } from "../Cursor/Context/CursorContext";
 
 /* Functions */
 
-function CustomCard({ image, header, subheader, url }) {
+function CustomCard({ image, header, credit, url }) {
   const { setType } = useContext(CursorContext);
 
   return (
@@ -26,19 +26,17 @@ function CustomCard({ image, header, subheader, url }) {
       onClick={() => setType("default")}
       to={url}
     >
-      <Overlay>
-        <TopContainer>
-          <Row className="d-flex flex-column">
-            <Col>
-              <Header> {header}</Header>
-            </Col>
-            <Col className="d-flex justify-content-end">
-              <Subheader>{subheader}</Subheader>
-            </Col>
-          </Row>
-        </TopContainer>
-      </Overlay>
       <CardImage style={{ backgroundImage: `url(${image})` }} />
+      <Overlay>
+        <div>
+          <Header>{header}</Header>
+          <Credit>Photo: {credit}</Credit>
+        </div>
+        <Explore>
+          Explore
+          <FiArrowRight aria-hidden="true" />
+        </Explore>
+      </Overlay>
     </ImageContainer>
   );
 }
